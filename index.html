@@ -175,7 +175,7 @@
 
     .section-intro {
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: var(--text-muted);
       font-size: 0.95rem;
     }
@@ -184,51 +184,54 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 2rem;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.6rem;
       align-items: center;
-      padding: 1.5rem 0 2.3rem;
+      padding: 1.4rem 0 1.8rem;
     }
 
     .hero-left h1 {
-      font-size: clamp(1.9rem, 3vw, 2.6rem);
-      margin: 0 0 0.6rem;
+      font-size: 2.2rem;
+      margin: 0 0 0.5rem;
       color: var(--primary-dark);
     }
 
     .hero-left h1 span {
-      color: var(--accent);
+      color: var(--primary);
     }
 
     .hero-subtitle {
-      font-size: 1rem;
+      margin: 0 0 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 1rem;
+      font-size: 1rem;
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .badge {
       font-size: 0.8rem;
-      padding: 0.25rem 0.55rem;
+      padding: 0.18rem 0.5rem;
       border-radius: 999px;
-      background: var(--grey-light);
+      background: #fff;
+      border: 1px solid #ddd;
       color: var(--text-muted);
     }
 
     .badge.blue {
-      background: rgba(46, 125, 50, 0.12);
-      color: var(--primary-dark);
+      background: #e3f2fd;
+      border-color: #90caf9;
+      color: #1565c0;
     }
 
     .badge.orange {
-      background: rgba(237, 125, 49, 0.12);
-      color: #884017;
+      background: #fff3e0;
+      border-color: #ffcc80;
+      color: #e65100;
     }
 
     .hero-actions {
@@ -250,7 +253,7 @@
       font-size: 0.9rem;
       font-weight: 600;
       transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background 0.15s ease;
+        background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
       text-decoration: none;
       white-space: nowrap;
     }
@@ -275,6 +278,21 @@
 
     .btn-outline:hover {
       background: rgba(46, 125, 50, 0.06);
+    }
+
+    /* Bouton Tarifs spécifique (header + contact) */
+    .btn-tarif {
+      background: #fff8f2;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .btn-tarif:hover {
+      background: var(--accent);
+      color: #fff;
     }
 
     .hero-note {
@@ -348,19 +366,23 @@
       font-size: 0.75rem;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: var(--grey-light);
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
+      background: #f1f1f1;
+      margin-bottom: 0.25rem;
     }
 
     .tag.green {
-      background: rgba(112, 173, 71, 0.12);
-      color: #3f6c26;
+      background: #e8f5e9;
+      color: #1b5e20;
     }
 
     .tag.yellow {
-      background: rgba(255, 192, 0, 0.15);
-      color: #7a5a00;
+      background: #fffde7;
+      color: #f57f17;
+    }
+
+    .tag.orange {
+      background: #fff3e0;
+      color: #e65100;
     }
 
     /* ========== NIVEAUX ========== */
@@ -368,8 +390,7 @@
     .levels {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.75rem;
-      font-size: 0.88rem;
+      gap: 0.9rem;
     }
 
     .level-card {
@@ -377,15 +398,14 @@
       border-radius: var(--radius);
       padding: 0.8rem;
       box-shadow: var(--shadow-soft);
-      border-top: 3px solid var(--primary);
+      font-size: 0.9rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.35rem;
     }
 
     .level-title {
       font-weight: 700;
-      font-size: 0.95rem;
       color: var(--primary-dark);
     }
 
@@ -395,80 +415,24 @@
     }
 
     .level-topics {
-      list-style: none;
-      padding-left: 0;
-      margin: 0.3rem 0 0.5rem;
+      margin: 0.3rem 0 0.4rem;
+      padding-left: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .level-topics li {
-      margin: 0.1rem 0;
-    }
-
-    .level-topics li::before {
-      content: "• ";
-      color: var(--primary);
+      margin-bottom: 0.15rem;
     }
 
     .level-badge {
       align-self: flex-start;
       font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 999px;
-      background: var(--grey-light);
-      color: var(--text-muted);
-    }
-
-    /* ========== POUR QUI ========== */
-
-    .audiences {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .audiences ul {
-      margin: 0.3rem 0 0;
-      padding-left: 1.1rem;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    /* ========== FORMATS ========== */
-
-    .formats {
-      display: grid;
-      grid-template-columns: 2fr 1.5fr;
-      gap: 1rem;
-    }
-
-    .formats ul {
-      margin: 0.4rem 0 0.8rem;
-      padding-left: 1.1rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* ========== A PROPOS ========== */
-
-    .about {
-      display: grid;
-      grid-template-columns: 2fr 1.3fr;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-
-    .about-highlight {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 0.9rem 1rem;
-      box-shadow: var(--shadow-soft);
-      font-size: 0.9rem;
-    }
-
-    .about-highlight ul {
-      margin: 0.4rem 0 0.4rem;
-      padding-left: 1.1rem;
-      color: var(--text-muted);
+      background: #e8f5e9;
+      color: #1b5e20;
+      margin-top: auto;
     }
 
     /* ========== EXEMPLES ========== */
@@ -476,57 +440,84 @@
     .examples-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0.75rem;
+      gap: 0.9rem;
     }
 
     .example-card {
       background: #fff;
       border-radius: var(--radius);
-      padding: 0.9rem 0.9rem 1rem;
+      padding: 0.8rem;
       box-shadow: var(--shadow-soft);
       font-size: 0.9rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      gap: 0.35rem;
     }
 
     .example-card h3 {
-      margin: 0 0 0.3rem;
-      font-size: 1rem;
+      margin: 0;
       color: var(--primary-dark);
     }
 
-    .example-card p {
-      margin: 0 0 0.3rem;
-      color: var(--text-muted);
-    }
-
     .example-meta {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 0.4rem;
     }
 
     .example-actions {
       margin-top: 0.4rem;
     }
 
-    /* ========== CONTACT ========== */
+    /* ========== FORMATS, ABOUT, CONTACT ========== */
+
+    .audiences,
+    .formats,
+    .about {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .formats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-highlight {
+      background: #f1f8e9;
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .about-highlight h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+
+    .about-highlight ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1rem;
+      color: var(--text-muted);
+    }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
-      gap: 1rem;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.1rem;
+      align-items: flex-start;
     }
 
     form {
       background: #fff;
-      padding: 1rem;
+      padding: 0.9rem 1rem 1rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow-soft);
-      display: grid;
-      gap: 0.7rem;
       font-size: 0.9rem;
+    }
+
+    form div {
+      margin-bottom: 0.7rem;
     }
 
     label {
@@ -561,6 +552,10 @@
 
     .contact-info strong {
       color: var(--primary-dark);
+    }
+
+    .contact-info .btn-tarif {
+      margin-top: 0.4rem;
     }
 
     /* ========== FOOTER ========== */
@@ -680,6 +675,9 @@
       </button>
 
       <nav class="nav-links">
+        <!-- Bouton Tarifs distinct, menant vers une page séparée -->
+        <a href="tarifs.html" class="btn btn-tarif">Tarifs &amp; packs</a>
+
         <a href="#pourquoi">Pourquoi nous</a>
         <a href="#niveaux">Niveaux</a>
         <a href="#public">Public</a>
@@ -761,13 +759,13 @@
           </p>
         </div>
         <div class="card">
-          <span class="tag">Supports clés en main</span>
-          <h3>Des supports prêts à être animés ou utilisés en autonomie</h3>
+          <span class="tag orange">Supports clé-en-main</span>
+          <h3>Des supports prêts à former</h3>
           <p>
-            Diaporamas illustrés, fichiers Excel d’exercices, corrections détaillées : tout est déjà structuré.
+            PowerPoints, fichiers d’exercices, corrections et fil conducteur pédagogique déjà structurés.
           </p>
           <p>
-            Vous pouvez animer la formation vous-même ou nous confier l’animation complète.
+            Vous pouvez animer les formations vous-même, ou faire intervenir ProcessXcel en tant que formateur externe.
           </p>
         </div>
       </div>
@@ -775,37 +773,36 @@
 
     <!-- NIVEAUX -->
     <section id="niveaux">
-      <h2>Les 5 niveaux TOSA couverts</h2>
+      <h2>Les 5 niveaux de formation Excel</h2>
       <p class="section-intro">
-        Chaque niveau est un bloc cohérent. Vous pouvez choisir un seul niveau ou construire un parcours de plusieurs
-        niveaux selon votre public.
+        Chaque niveau correspond à un palier clair du TOSA, avec des objectifs précis et des cas concrets adaptés.
       </p>
       <div class="levels">
         <div class="level-card">
           <div class="level-title">Niveau 1 – Initial</div>
-          <div class="level-label">Découverte &amp; prise en main</div>
+          <div class="level-label">Découverte & mise en confiance</div>
           <ul class="level-topics">
-            <li>Interface, classeur, feuilles</li>
-            <li>Premières saisies et mises en forme</li>
-            <li>Enregistrer, ouvrir, gérer ses fichiers</li>
+            <li>Interface, fichiers, manipulations de base</li>
+            <li>Premières formules (somme, moyenne)</li>
+            <li>Mise en forme simple</li>
           </ul>
-          <span class="level-badge">Idéal grands débutants</span>
+          <span class="level-badge">Idéal débutants</span>
         </div>
 
         <div class="level-card">
           <div class="level-title">Niveau 2 – Basique</div>
-          <div class="level-label">Confort de travail &amp; fiabilité</div>
+          <div class="level-label">Autonomie quotidienne</div>
           <ul class="level-topics">
             <li>Tris, filtres, mise en forme</li>
             <li>SI, SOMME.SI, NB.SI</li>
             <li>Listes et tableaux simples</li>
           </ul>
-          <span class="level-badge">Autonomie quotidienne</span>
+          <span class="level-badge">Pour usage courant</span>
         </div>
 
         <div class="level-card">
-          <div class="level-title">Niveau 3 – Avancé</div>
-          <div class="level-label">Analyse &amp; automatisation légère</div>
+          <div class="level-title">Niveau 3 – Opérationnel</div>
+          <div class="level-label">Analyse & automatisation légère</div>
           <ul class="level-topics">
             <li>RECHERCHEX / INDEX + EQUIV</li>
             <li>Tableaux croisés dynamiques</li>
@@ -960,11 +957,7 @@
             Extrait : 1–2 compétences, captures d’écran, exercice simple.
           </div>
           <div class="example-actions">
-            <a
-              class="btn btn-outline"
-              href="exemples/Excel_Niveau1_Exemple.pptx"
-              download
-            >
+            <a class="btn btn-outline" href="exemples/Excel_Niveau1_Exemple.pptx" download>
               Télécharger un exemple
             </a>
           </div>
@@ -977,11 +970,7 @@
             Extrait : cas pratique sur listes &amp; calculs, correction guidée.
           </div>
           <div class="example-actions">
-            <a
-              class="btn btn-outline"
-              href="exemples/Excel_Niveau2_Exemple.pptx"
-              download
-            >
+            <a class="btn btn-outline" href="exemples/Excel_Niveau2_Exemple.pptx" download>
               Télécharger un exemple
             </a>
           </div>
@@ -994,11 +983,7 @@
             Extrait : recherche avancée + TCD, mise en situation métier.
           </div>
           <div class="example-actions">
-            <a
-              class="btn btn-outline"
-              href="exemples/Excel_Niveau3_Exemple.pptx"
-              download
-            >
+            <a class="btn btn-outline" href="exemples/Excel_Niveau3_Exemple.pptx" download>
               Télécharger un exemple
             </a>
           </div>
@@ -1011,11 +996,7 @@
             Extrait : mini-modèle multi-onglets + vérification des formules.
           </div>
           <div class="example-actions">
-            <a
-              class="btn btn-outline"
-              href="exemples/Excel_Niveau4_Exemple.pptx"
-              download
-            >
+            <a class="btn btn-outline" href="exemples/Excel_Niveau4_Exemple.pptx" download>
               Télécharger un exemple
             </a>
           </div>
@@ -1028,11 +1009,7 @@
             Extrait : fonctions peu courantes + bonnes pratiques modernes.
           </div>
           <div class="example-actions">
-            <a
-              class="btn btn-outline"
-              href="exemples/Excel_Niveau5_Exemple.pptx"
-              download
-            >
+            <a class="btn btn-outline" href="exemples/Excel_Niveau5_Exemple.pptx" download>
               Télécharger un exemple
             </a>
           </div>
@@ -1102,16 +1079,20 @@
             Vous pouvez aussi préciser vos zones d’intervention (ex. : Charente, Nouvelle-Aquitaine, distanciel France
             entière) et vos disponibilités habituelles.
           </p>
+          <!-- Bouton Tarifs sous le texte -->
+          <p>
+            <a href="tarifs.html" class="btn btn-tarif">Consulter les tarifs &amp; packs</a>
+          </p>
         </div>
       </div>
     </section>
   </main>
 
-<footer>
-  © 2025 – ProcessXcel – Formations Excel  
-  Éditeur : ProcessCel – Contact : thomas1868roisin@gmail.com  
-  Hébergement : Cloudflare Pages (pages.dev)
-</footer>
+  <footer>
+    © 2025 – ProcessXcel – Formations Excel<br />
+    Éditeur : ProcessXcel – Contact : thomas1868roisin@gmail.com<br />
+    Hébergement : Cloudflare Pages (pages.dev)
+  </footer>
 
   <script>
     const toggle = document.querySelector(".nav-toggle");
@@ -1129,5 +1110,3 @@
   </script>
 </body>
 </html>
-
-
