@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Formations Excel TOSA – Niveau 1 à 5</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Formations Excel complètes, du niveau 1 au niveau 5, alignées sur le référentiel TOSA. Supports pédagogiques illustrés, cas concrets et préparation à la certification.">
-  <style>
+  <meta charset="UTF-8" />
+  <title>ProcessXcel – Formations Excel TOSA Niveau 1 à 5</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Formations Excel complètes, du niveau 1 au niveau 5, alignées sur le référentiel TOSA. Supports ultra illustrés, cas concrets et préparation à la certification."
+  />
 
-    /* ---- VARIABLES ---- */
+  <style>
     :root {
-      --blue-main: #2E7D32;
-      --blue-dark: #1B5E20;
-      --orange: #ED7D31;
-      --yellow: #FFC000;
-      --green: #70AD47;
-      --grey-light: #E7E6E6;
+      --primary: #2e7d32;       /* Vert principal ProcessXcel */
+      --primary-dark: #1b5e20;  /* Vert foncé */
+      --accent: #ed7d31;        /* Orange accent */
+      --yellow: #ffc000;
+      --green-soft: #70ad47;
+      --grey-light: #e7e6e6;
       --grey-bg: #f5f5f7;
       --text-main: #222222;
       --text-muted: #555555;
       --radius: 10px;
-      --shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
+      --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.06);
       --max-width: 1100px;
     }
 
@@ -29,11 +31,19 @@
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Calibri", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, "Calibri", sans-serif;
       color: var(--text-main);
       background: var(--grey-bg);
       line-height: 1.5;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ========== HEADER / NAV ========== */
 
     header {
       position: sticky;
@@ -44,49 +54,63 @@
       border-bottom: 1px solid #ddd;
     }
 
-    /* ---- LOGO ---- */
-    .logo-img {
-      height: 45px;
-      width: auto;
-      margin-right: 0.5rem;
-    }
-
     .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       max-width: var(--max-width);
       margin: 0 auto;
       padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--blue-main);
-      letter-spacing: 0.04em;
       white-space: nowrap;
-      text-transform: uppercase;
     }
 
-    .nav-left span {
-      color: var(--orange);
+    .logo-img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      color: var(--primary-dark);
+    }
+
+    .brand-text-main span {
+      color: var(--primary);
+    }
+
+    .brand-tagline {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+
+    .brand-wrapper {
+      display: flex;
+      flex-direction: column;
     }
 
     .nav-links {
       display: flex;
       gap: 0.75rem;
       font-size: 0.9rem;
+      align-items: center;
     }
 
     .nav-links a {
       padding: 0.3rem 0.6rem;
       border-radius: 999px;
-      transition: 0.15s;
+      transition: background 0.15s ease;
     }
 
     .nav-links a:hover {
@@ -105,26 +129,33 @@
       align-items: center;
     }
 
-    .nav-toggle span,
-    .nav-toggle span::before,
-    .nav-toggle span::after {
+    .nav-toggle span {
+      display: inline-block;
       width: 16px;
       height: 2px;
       background: var(--text-main);
-      content: "";
-      display: block;
       position: relative;
     }
 
-    .nav-toggle span::before {
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
       position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: var(--text-main);
+    }
+
+    .nav-toggle span::before {
       top: -5px;
     }
 
     .nav-toggle span::after {
-      position: absolute;
       top: 5px;
     }
+
+    /* ========== LAYOUT GLOBAL ========== */
 
     main {
       max-width: var(--max-width);
@@ -132,49 +163,967 @@
       padding: 1.25rem 1rem 2rem;
     }
 
-    /* ----- Reste du style : inchangé ----- */
+    section {
+      padding: 1.4rem 0 0.4rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin: 0 0 0.3rem;
+    }
+
+    .section-intro {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ========== HERO ========== */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 2rem;
+      align-items: center;
+      padding: 1.5rem 0 2.3rem;
+    }
+
+    .hero-left h1 {
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      margin: 0 0 0.6rem;
+      color: var(--primary-dark);
+    }
+
+    .hero-left h1 span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: var(--grey-light);
+      color: var(--text-muted);
+    }
+
+    .badge.blue {
+      background: rgba(46, 125, 50, 0.12);
+      color: var(--primary-dark);
+    }
+
+    .badge.orange {
+      background: rgba(237, 125, 49, 0.12);
+      color: #884017;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary-dark);
+      border: 1px solid var(--primary-dark);
+    }
+
+    .btn-outline:hover {
+      background: rgba(46, 125, 50, 0.06);
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-right {
+      background: #fff;
+      padding: 1.1rem 1.3rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border-left: 4px solid var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .hero-right h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-right ul {
+      padding-left: 1.1rem;
+      margin: 0.3rem 0 0.7rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-right li {
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid #eee;
+      padding-top: 0.6rem;
+    }
+
+    /* ========== CARTES & GRILLES ========== */
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .card p {
+      margin: 0.2rem 0;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--grey-light);
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .tag.green {
+      background: rgba(112, 173, 71, 0.12);
+      color: #3f6c26;
+    }
+
+    .tag.yellow {
+      background: rgba(255, 192, 0, 0.15);
+      color: #7a5a00;
+    }
+
+    /* ========== NIVEAUX ========== */
+
+    .levels {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.75rem;
+      font-size: 0.88rem;
+    }
+
+    .level-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      box-shadow: var(--shadow-soft);
+      border-top: 3px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .level-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary-dark);
+    }
+
+    .level-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .level-topics {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.3rem 0 0.5rem;
+    }
+
+    .level-topics li {
+      margin: 0.1rem 0;
+    }
+
+    .level-topics li::before {
+      content: "• ";
+      color: var(--primary);
+    }
+
+    .level-badge {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--grey-light);
+      color: var(--text-muted);
+    }
+
+    /* ========== POUR QUI ========== */
+
+    .audiences {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .audiences ul {
+      margin: 0.3rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== FORMATS ========== */
+
+    .formats {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 1rem;
+    }
+
+    .formats ul {
+      margin: 0.4rem 0 0.8rem;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== A PROPOS ========== */
+
+    .about {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .about-highlight {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .about-highlight ul {
+      margin: 0.4rem 0 0.4rem;
+      padding-left: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== EXEMPLES ========== */
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .example-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.9rem 0.9rem 1rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .example-card h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .example-card p {
+      margin: 0 0 0.3rem;
+      color: var(--text-muted);
+    }
+
+    .example-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .example-actions {
+      margin-top: 0.4rem;
+    }
+
+    /* ========== CONTACT ========== */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 1rem;
+    }
+
+    form {
+      background: #fff;
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.45rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .contact-info {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-info p {
+      margin: 0 0 0.5rem;
+    }
+
+    .contact-info strong {
+      color: var(--primary-dark);
+    }
+
+    /* ========== FOOTER ========== */
+
+    footer {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 1.3rem;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .grid-3,
+      .levels,
+      .audiences,
+      .formats,
+      .about,
+      .examples-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .levels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .examples-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 0.4rem;
+      }
+
+      .nav-links a {
+        padding: 0.4rem 0.6rem;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+
+      .btn {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 1rem 0.8rem 1.5rem;
+      }
+
+      .levels {
+        grid-template-columns: 1fr;
+      }
+
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 1.2rem 0 1.6rem;
+      }
+
+      .hero-left h1 {
+        font-size: 1.9rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <header>
+    <div class="nav">
+      <!-- Logo + marque -->
+      <div class="nav-left">
+        <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
+        <div class="brand-wrapper">
+          <div class="brand-text-main">Process<span>Xcel</span></div>
+          <div class="brand-tagline">La formation Excel enfin pensée pour vous</div>
+        </div>
+      </div>
 
-<header>
-  <div class="nav">
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span>
+      </button>
 
-    <!-- LOGO + NOM -->
-    <div class="nav-left">
-      <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img">
-      Process<span>Xcel</span>
+      <nav class="nav-links">
+        <a href="#pourquoi">Pourquoi nous</a>
+        <a href="#niveaux">Niveaux</a>
+        <a href="#public">Public</a>
+        <a href="#formats">Formats</a>
+        <a href="#apropos">À propos</a>
+        <a href="#exemples">Exemples</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <button class="nav-toggle" aria-label="Menu">
-      <span></span>
-    </button>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-left">
+        <h1>Formations Excel <span>TOSA</span> – Niveau 1 à 5</h1>
+        <p class="hero-subtitle">
+          Une approche d’ingénieur, des supports ultra illustrés, un parcours complet pour faire passer vos équipes d’un
+          usage basique à une maîtrise experte d’Excel.
+        </p>
+        <div class="hero-badges">
+          <span class="badge blue">Aligné sur le référentiel TOSA</span>
+          <span class="badge orange">Supports issus de l’industrie &amp; du terrain</span>
+          <span class="badge">Présentiel &amp; distanciel</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#niveaux">Voir les 5 niveaux</a>
+          <a class="btn btn-outline" href="#contact">Demander un devis</a>
+        </div>
+        <p class="hero-note">
+          Pour entreprises, écoles, centres de formation &amp; indépendants – contenu modulable selon vos besoins
+          (initiation, perfectionnement, expert).
+        </p>
+      </div>
 
-    <nav class="nav-links">
-      <a href="#pourquoi">Pourquoi nous</a>
-      <a href="#niveaux">Niveaux</a>
-      <a href="#public">Public</a>
-      <a href="#formats">Formats</a>
-      <a href="#apropos">À propos</a>
-      <a href="#exemples">Exemples</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+      <div class="hero-right">
+        <h2>Une “bible Excel” prête à l’emploi</h2>
+        <p class="hero-tagline">Chaque compétence du TOSA est traitée avec :</p>
+        <ul>
+          <li>Un exemple concret issu du quotidien professionnel</li>
+          <li>Une démonstration pas-à-pas en capture d’écran</li>
+          <li>Un exercice + une correction détaillée</li>
+          <li>Un lien logique vers la compétence suivante</li>
+        </ul>
+        <p class="hero-tagline">
+          Résultat : des formations fluides, structurées, sans improvisation, où chaque minute est utile.
+        </p>
+      </div>
+    </section>
 
-<!-- 🔽 Le reste du fichier reste IDENTIQUE à ton index original 🔽 -->
+    <!-- POURQUOI NOUS -->
+    <section id="pourquoi">
+      <h2>Pourquoi cette formation Excel est différente ?</h2>
+      <p class="section-intro">
+        La plupart des formations Excel se contentent de survoler des menus. Ici, tout a été conçu comme un véritable
+        parcours d’ingénierie pédagogique, du niveau 1 au niveau 5 du TOSA.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <span class="tag green">Pédagogie structurée</span>
+          <h3>Un parcours complet, du débutant à l’expert</h3>
+          <p>
+            5 niveaux qui suivent le référentiel TOSA, mais avec une vraie logique d’apprentissage : chaque compétence
+            prépare la suivante.
+          </p>
+          <p>
+            Idéal pour construire des parcours personnalisés : remise à niveau, montée en compétence, préparation à la
+            certification.
+          </p>
+        </div>
+        <div class="card">
+          <span class="tag yellow">Terrain &amp; industrie</span>
+          <h3>Conçu par un ingénieur utilisateur intensif d’Excel</h3>
+          <p>
+            Les exemples viennent de l’industrie, des achats, de la logistique, du contrôle de gestion, de la production.
+          </p>
+          <p>
+            Chaque notion est reliée à un cas réel de bureau, pas seulement à des QCM.
+          </p>
+        </div>
+        <div class="card">
+          <span class="tag">Supports clés en main</span>
+          <h3>Des supports prêts à être animés ou utilisés en autonomie</h3>
+          <p>
+            Diaporamas illustrés, fichiers Excel d’exercices, corrections détaillées : tout est déjà structuré.
+          </p>
+          <p>
+            Vous pouvez animer la formation vous-même ou nous confier l’animation complète.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<!-- HERO, sections, etc. (je peux te réinjecter tout le contenu complet si tu veux) -->
+    <!-- NIVEAUX -->
+    <section id="niveaux">
+      <h2>Les 5 niveaux TOSA couverts</h2>
+      <p class="section-intro">
+        Chaque niveau est un bloc cohérent. Vous pouvez choisir un seul niveau ou construire un parcours de plusieurs
+        niveaux selon votre public.
+      </p>
+      <div class="levels">
+        <div class="level-card">
+          <div class="level-title">Niveau 1 – Initial</div>
+          <div class="level-label">Découverte &amp; prise en main</div>
+          <ul class="level-topics">
+            <li>Interface, classeur, feuilles</li>
+            <li>Premières saisies et mises en forme</li>
+            <li>Enregistrer, ouvrir, gérer ses fichiers</li>
+          </ul>
+          <span class="level-badge">Idéal grands débutants</span>
+        </div>
 
-<script>
-  const toggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.nav-links');
+        <div class="level-card">
+          <div class="level-title">Niveau 2 – Basique</div>
+          <div class="level-label">Confort de travail &amp; fiabilité</div>
+          <ul class="level-topics">
+            <li>Tris, filtres, mise en forme</li>
+            <li>SI, SOMME.SI, NB.SI</li>
+            <li>Listes et tableaux simples</li>
+          </ul>
+          <span class="level-badge">Autonomie quotidienne</span>
+        </div>
 
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('nav-open');
-  });
-</script>
+        <div class="level-card">
+          <div class="level-title">Niveau 3 – Avancé</div>
+          <div class="level-label">Analyse &amp; automatisation légère</div>
+          <ul class="level-topics">
+            <li>RECHERCHEX / INDEX + EQUIV</li>
+            <li>Tableaux croisés dynamiques</li>
+            <li>Analyse de bases de données</li>
+          </ul>
+          <span class="level-badge">Pour fonctions support</span>
+        </div>
 
+        <div class="level-card">
+          <div class="level-title">Niveau 4 – Expert</div>
+          <div class="level-label">Modèles, fiabilité &amp; contrôle</div>
+          <ul class="level-topics">
+            <li>Modèles multi-feuilles, multi-fichiers</li>
+            <li>Outils d’audit, noms, validations</li>
+            <li>Graphiques avancés &amp; tableaux de bord</li>
+          </ul>
+          <span class="level-badge">Cadres &amp; référents Excel</span>
+        </div>
+
+        <div class="level-card">
+          <div class="level-title">Niveau 5 – TOSA complet</div>
+          <div class="level-label">Maîtrise exhaustive &amp; regard critique</div>
+          <ul class="level-topics">
+            <li>Fonctions avancées et rares</li>
+            <li>Options de calcul, hypothèses, solveur</li>
+            <li>Limites et bonnes pratiques modernes</li>
+          </ul>
+          <span class="level-badge">Préparation certif &amp; experts</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- POUR QUI -->
+    <section id="public">
+      <h2>À qui s’adressent ces formations ?</h2>
+      <p class="section-intro">
+        Le contenu est modulable : sessions mononiveau (ex. Excel – Niveau 2) ou parcours progressifs sur plusieurs
+        niveaux.
+      </p>
+      <div class="audiences">
+        <div class="card">
+          <h3>Entreprises &amp; équipes internes</h3>
+          <ul>
+            <li>Services administratifs &amp; ADV</li>
+            <li>Comptabilité, contrôle de gestion</li>
+            <li>Acheteurs, planificateurs, logistique</li>
+            <li>Chefs de projet, ingénieurs, managers</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Écoles, CFA &amp; centres de formation</h3>
+          <ul>
+            <li>Préparation TOSA</li>
+            <li>Parcours Excel du BTS au Master</li>
+            <li>Remise à niveau pour alternants</li>
+            <li>Supports de cours clé-en-main</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Indépendants &amp; particuliers</h3>
+          <ul>
+            <li>Freelances &amp; auto-entrepreneurs</li>
+            <li>Personnes en reconversion</li>
+            <li>Préparation à une prise de poste</li>
+            <li>Coaching personnalisé sur vos fichiers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATS -->
+    <section id="formats">
+      <h2>Formats, durée &amp; financement</h2>
+      <p class="section-intro">
+        Nous adaptons les volumes horaires et le découpage des niveaux à votre réalité : journées complètes, modules
+        courts ou accompagnement individuel.
+      </p>
+      <div class="formats">
+        <div>
+          <h3>Formats possibles</h3>
+          <ul>
+            <li>Présentiel en entreprise ou en centre</li>
+            <li>Classes virtuelles en distanciel</li>
+            <li>Accompagnement individuel ou petits groupes</li>
+            <li>Parcours mixte : e-learning + sessions live</li>
+          </ul>
+          <h3>Durées typiques</h3>
+          <ul>
+            <li>Niveau 1 &amp; 2 : 1 à 2 jours chacun</li>
+            <li>Niveau 3 &amp; 4 : 2 jours chacun</li>
+            <li>Niveau 5 : 2 jours + préparation autonome à la certif</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Financement &amp; certification</h3>
+          <ul>
+            <li>Aligné sur le référentiel officiel TOSA Excel</li>
+            <li>Préparation à la certification (exercices type QCM &amp; cas pratiques)</li>
+            <li>Possibilité d’intégrer la certification via un centre partenaire</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- A PROPOS -->
+    <section id="apropos">
+      <h2>À propos de ProcessXcel</h2>
+      <p class="section-intro">
+        ProcessXcel est né d’un constat simple : Excel est l’un des outils les plus puissants du bureau, mais aussi l’un
+        des plus sous-exploités. L’objectif : rendre l’expertise Excel accessible, concrète et agréable à apprendre.
+      </p>
+      <div class="about">
+        <div>
+          <p>
+            Ingénieur de formation, utilisateur intensif d’Excel en industrie, achats, gestion de production et
+            amélioration continue, j’ai construit ces supports comme je construisais mes propres outils métiers :
+          </p>
+          <ul>
+            <li>clairs, illustrés, centrés sur les cas concrets,</li>
+            <li>progressifs, avec une vraie cohérence pédagogique,</li>
+            <li>faciles à animer pour n’importe quel formateur.</li>
+          </ul>
+          <p>
+            Les supports peuvent être utilisés pour vos propres formations internes, ou nous pouvons intervenir en tant
+            que formateur externe.
+          </p>
+        </div>
+        <div class="about-highlight">
+          <h3>Ce que vous obtenez concrètement</h3>
+          <ul>
+            <li>Un pack complet de supports PowerPoint par niveau</li>
+            <li>Des fichiers Excel d’exercices &amp; corrections</li>
+            <li>Une trame pédagogique prête à l’emploi</li>
+            <li>Un langage simple, illustré, sans jargon inutile</li>
+            <li>Une adaptation possible à vos métiers et cas réels</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXEMPLES -->
+    <section id="exemples">
+      <h2>Exemples de supports par niveau</h2>
+      <p class="section-intro">
+        Voici un aperçu téléchargeable pour chaque niveau.
+      </p>
+      <div class="examples-grid">
+        <div class="example-card">
+          <h3>Niveau 1</h3>
+          <p>Découverte d’Excel, prise en main, premières formules et mise en forme basique.</p>
+          <div class="example-meta">
+            Extrait : 1–2 compétences, captures d’écran, exercice simple.
+          </div>
+          <div class="example-actions">
+            <a
+              class="btn btn-outline"
+              href="exemples/Excel_Niveau1_Exemple.pptx"
+              download
+            >
+              Télécharger un exemple
+            </a>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h3>Niveau 2</h3>
+          <p>Tris, filtres, formules conditionnelles, tableaux simples et mise en forme avancée.</p>
+          <div class="example-meta">
+            Extrait : cas pratique sur listes &amp; calculs, correction guidée.
+          </div>
+          <div class="example-actions">
+            <a
+              class="btn btn-outline"
+              href="exemples/Excel_Niveau2_Exemple.pptx"
+              download
+            >
+              Télécharger un exemple
+            </a>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h3>Niveau 3</h3>
+          <p>RECHERCHEX / INDEX+EQUIV, bases de données, tableaux croisés dynamiques.</p>
+          <div class="example-meta">
+            Extrait : recherche avancée + TCD, mise en situation métier.
+          </div>
+          <div class="example-actions">
+            <a
+              class="btn btn-outline"
+              href="exemples/Excel_Niveau3_Exemple.pptx"
+              download
+            >
+              Télécharger un exemple
+            </a>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h3>Niveau 4</h3>
+          <p>Modèles multi-feuilles, audit de formules, tableaux de bord &amp; graphiques avancés.</p>
+          <div class="example-meta">
+            Extrait : mini-modèle multi-onglets + vérification des formules.
+          </div>
+          <div class="example-actions">
+            <a
+              class="btn btn-outline"
+              href="exemples/Excel_Niveau4_Exemple.pptx"
+              download
+            >
+              Télécharger un exemple
+            </a>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h3>Niveau 5</h3>
+          <p>Couverture complète TOSA : fonctions avancées, options de calcul, regard critique.</p>
+          <div class="example-meta">
+            Extrait : fonctions peu courantes + bonnes pratiques modernes.
+          </div>
+          <div class="example-actions">
+            <a
+              class="btn btn-outline"
+              href="exemples/Excel_Niveau5_Exemple.pptx"
+              download
+            >
+              Télécharger un exemple
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact &amp; demande de devis</h2>
+      <p class="section-intro">
+        Décrivez votre besoin en quelques lignes : nous vous proposerons un format adapté (niveaux, durée,
+        présentiel/distanciel).
+      </p>
+      <div class="contact-grid">
+        <form action="https://formspree.io/f/mzzngjyo" method="POST">
+          <input type="hidden" name="_subject" value="Nouvelle demande depuis le site ProcessXcel" />
+          <div>
+            <label for="nom">Nom / Organisation</label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              placeholder="Votre nom, entreprise ou école"
+              required
+            />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="vous@example.com"
+              required
+            />
+          </div>
+          <div>
+            <label for="type">Type de demande</label>
+            <select id="type" name="type">
+              <option>Formation en entreprise</option>
+              <option>Formation pour une école / centre</option>
+              <option>Demande individuelle</option>
+              <option>Autre (à préciser)</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Votre besoin</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Ex : Mise à niveau niveau 1–3 pour une équipe de 12 personnes, préparation TOSA, distanciel sur 3 jours…"
+            ></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+          </div>
+        </form>
+
+        <div class="contact-info">
+          <p><strong>Vous préférez un échange direct ?</strong></p>
+          <p>
+            Ajoutez ici vos coordonnées (téléphone, e-mail de contact, LinkedIn…), ou laissez simplement le formulaire
+            et nous nous occupons des retours.
+          </p>
+          <p>
+            Vous pouvez aussi préciser vos zones d’intervention (ex. : Charente, Nouvelle-Aquitaine, distanciel France
+            entière) et vos disponibilités habituelles.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 – ProcessXcel – Formations Excel TOSA – Tous droits réservés.
+  </footer>
+
+  <script>
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("nav-open");
+    });
+
+    links.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        links.classList.remove("nav-open");
+      }
+    });
+  </script>
 </body>
 </html>
