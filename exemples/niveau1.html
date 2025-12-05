@@ -1,72 +1,68 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Exemple de support – Niveau 1 | ProcessXcel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Exemple de support – Niveau 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, "Helvetica Neue", Arial, "Calibri", sans-serif;
+      font-family: system-ui, Arial, sans-serif;
       background: #f5f5f7;
       color: #222;
-      line-height: 1.5;
+      padding: 20px;
     }
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem 2rem;
+    .back {
+      margin-bottom: 15px;
+      font-size: 0.9rem;
     }
     a { color: #2e7d32; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .back {
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
+
     .card {
       background: #fff;
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      padding: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      max-width: 1000px;
+      margin: 0 auto;
     }
+
     h1 {
-      margin-top: 0;
-      color: #1b5e20;
       font-size: 1.6rem;
+      color: #1b5e20;
+      margin-top: 0;
     }
-    .subtitle {
-      color: #555;
-      margin-bottom: 1rem;
-    }
+
     iframe {
       width: 100%;
-      min-height: 480px;
-      border: 1px solid #ddd;
+      height: 700px;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      margin-top: 20px;
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <div class="back">
-      ← <a href="../index.html#exemples">Retour aux niveaux</a>
-    </div>
 
-    <div class="card">
-      <h1>Exemple de support – Niveau 1</h1>
-      <p class="subtitle">
-        Aperçu d’un extrait de support : découverte d’Excel, premières formules, mise en forme simple.
-      </p>
+  <div class="back">
+    ← <a href="../index.html#exemples">Retour aux niveaux</a>
+  </div>
 
-      <!-- Ici tu intègres ton contenu : PDF ou PPTX converti, etc. -->
-      <!-- Exemple si tu exportes un aperçu en PDF dans le dossier exemples : -->
-      <!-- <iframe src="Excel_Niveau1_Exemple.pdf"></iframe> -->
+  <div class="card">
+    <h1>Exemple de support – Niveau 1</h1>
+    <p>
+      Aperçu d’un extrait : découverte d’Excel, premières formules, mise en forme simple.
+    </p>
 
-      <p class="subtitle">
-        Pour la version complète, le support détaillé est fourni lors de la formation.
-      </p>
-    </div>
-  </main>
+    <!-- ICI : intégration du PDF -->
+    <iframe src="Niveau1.pdf"></iframe>
+
+    <p style="margin-top: 15px; color: #555;">
+      Le support complet est fourni lors de la formation.
+    </p>
+  </div>
+
 </body>
 </html>
