@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Atelier pilote & témoignages – ProcessXcel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --accent: #ed7d31;
+      --grey-bg: #f5f5f7;
+      --grey-light: #e7e6e6;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --radius: 10px;
+      --shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
+      --max-width: 1100px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--grey-bg);
+      font-family: system-ui, -apple-system, Roboto, "Segoe UI", Arial, sans-serif;
+      color: var(--text-main);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: #ffffffee;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #ddd;
+      z-index: 20;
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: auto;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .7rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: var(--grey-light);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--primary-dark);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-top: 0;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .section-intro {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.3rem;
+    }
+
+    /* Photos */
+    .pilot-photos {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .pilot-photos img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      object-fit: cover;
+    }
+
+    /* Témoignages */
+    .testimonials {
+      margin-top: 2rem;
+    }
+
+    .testimonials h2 {
+      color: var(--primary-dark);
+      margin-bottom: .3rem;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1rem;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      padding: .8rem 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      font-size: .9rem;
+      position: relative;
+    }
+
+    .testimonial-quote {
+      font-style: italic;
+      margin-bottom: .6rem;
+      color: var(--text-muted);
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .testimonial-role {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      font-size: .8rem;
+      color: var(--text-muted);
+      border-top: 1px solid #ddd;
+      padding: 1rem 1.5rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <img src="assets/img/Logo.png" alt="Logo ProcessXcel" style="height:50px;">
+    </div>
+    <nav class="nav-links">
+      <a href="index.html" class="btn-outline">← Accueil</a>
+      <a href="formateurs.html">Formateurs</a>
+      <a href="tarifs.html">Tarifs</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Atelier <span>Pilote</span> & Témoignages</h1>
+  <p class="section-intro">
+    Avant le lancement officiel de ProcessXcel, plusieurs ateliers pilotes ont été animés auprès 
+    de collègues et de contacts professionnels afin d'ajuster les supports, tester la progression 
+    et valider la clarté des explications.
+  </p>
+
+  <!-- Photos -->
+  <div class="pilot-photos">
+    <img src="assets/img/atelier1.jpg" alt="Atelier pilote Excel – photo 1 (placeholder)">
+    <img src="assets/img/atelier2.jpg" alt="Atelier pilote Excel – photo 2 (placeholder)">
+  </div>
+
+  <!-- Témoignages -->
+  <section class="testimonials">
+    <h2>Témoignages issus des ateliers pilotes</h2>
+    <p class="section-intro">
+      Les retours suivants proviennent de participants réels ayant assisté aux ateliers pilotes.
+    </p>
+
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“Enfin une explication claire des recherches croisées. J’ai compris en 5 minutes ce que je n’arrivais pas à faire depuis des mois.”</p>
+        <div class="testimonial-author">Adrien</div>
+        <div class="testimonial-role">Technicien logistique</div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“Très visuel et logique. Le formateur explique exactement comme j’aurais voulu qu’on m’explique à l’école.”</p>
+        <div class="testimonial-author">Camille</div>
+        <div class="testimonial-role">Assistante administrative</div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">“On voit vraiment que ça vient de l’industrie. C’est concret, rapide et directement applicable.”</p>
+        <div class="testimonial-author">Lucas</div>
+        <div class="testimonial-role">Opérateur de production</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2025 – ProcessXcel – Formations Excel  
+</footer>
+
+</body>
+</html>
