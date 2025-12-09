@@ -1141,8 +1141,18 @@
       }
     });
   </script>
+  <script>
+document.querySelector("form").addEventListener("submit", function(e) {
+    // Laisse Formspree envoyer normalement
+    setTimeout(function() {
+        window.location.href = "https://processxcel.fr/merci.html";
+    }, 100); // petite latence pour laisser l'envoi partir
+});
+</script>
+  
 </body>
 </html>
+
 
 
 
