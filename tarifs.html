@@ -338,6 +338,88 @@
   color: #666;
   margin-top: 0.6rem;
 }
+.custom-build {
+  margin-top: 1.2rem;
+  padding: 1.4rem 1.4rem;
+  background: linear-gradient(90deg, #ffffff, #f6f9f7);
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+.custom-build-header h2 {
+  margin: 0.3rem 0 0.4rem;
+  color: var(--primary-dark);
+}
+
+.custom-subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.custom-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #e8f5e9;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.custom-build-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.custom-build-block {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+}
+
+.custom-build-block h3 {
+  margin: 0 0 0.4rem;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+
+.custom-build-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-muted);
+}
+
+.custom-build-block li {
+  margin-bottom: 0.3rem;
+}
+
+.custom-note {
+  margin: 1rem 0 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid #eee;
+  padding-top: 0.8rem;
+}
+
+.custom-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .custom-build-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
   </style>
 </head>
@@ -465,6 +547,63 @@
     Format et contenu définis sur devis, selon vos fichiers, vos besoins et votre contexte métier.
   </p>
 </section>
+  <section class="custom-build">
+  <div class="custom-build-header">
+    <span class="custom-chip">Service sur mesure</span>
+    <h2>Création de fichiers Excel sur mesure</h2>
+    <p class="custom-subtitle">
+      Conception d’outils Excel adaptés à vos processus, vos contraintes et vos usages réels.
+      Objectif : un fichier <strong>fiable</strong>, <strong>lisible</strong> et <strong>durable</strong>, utilisable par vos équipes.
+    </p>
+  </div>
+
+  <div class="custom-build-grid">
+    <div class="custom-build-block">
+      <h3>Exemples de livrables</h3>
+      <ul>
+        <li>Tableaux de bord (KPI, suivi d’activité, production, logistique)</li>
+        <li>Outils achats : suivi fournisseurs, comparatifs, matrices de décision</li>
+        <li>Budgets, suivi dépenses, prévisionnels, contrôle de cohérence</li>
+        <li>Planning / charge / allocations (ressources, équipes, projets)</li>
+        <li>Modèles standardisés : saisie guidée, listes déroulantes, contrôles</li>
+      </ul>
+    </div>
+
+    <div class="custom-build-block">
+      <h3>Ce qui est inclus</h3>
+      <ul>
+        <li>Analyse du besoin + recueil des règles métier</li>
+        <li>Structuration du fichier (onglets, tables, flux, logique)</li>
+        <li>Formules robustes + contrôles d’erreurs</li>
+        <li>Mise en forme claire + impression / export PDF si nécessaire</li>
+        <li>Livraison d’une version “utilisateur” + une version “admin” (si utile)</li>
+        <li>Mini-guide d’utilisation + passation avec l’équipe</li>
+      </ul>
+    </div>
+
+    <div class="custom-build-block">
+      <h3>Options possibles</h3>
+      <ul>
+        <li>Automatisation légère (macros simples, boutons, exports)</li>
+        <li>Power Query (import / nettoyage / fusion de données)</li>
+        <li>Protection (feuilles, structure, verrouillage de zones sensibles)</li>
+        <li>Version “multi-utilisateurs” (règles, saisie sécurisée, traçabilité)</li>
+        <li>Maintenance / évolution du fichier dans le temps</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="custom-note">
+    <strong>Tarification sur devis.</strong> Le prix dépend de la complexité (nombre d’onglets, règles métier,
+    automatisations, sources de données) et du niveau de fiabilisation attendu.
+  </p>
+
+  <div class="custom-actions">
+    <a href="index.html#contact" class="btn btn-primary">Demander un devis</a>
+    <a href="index.html#contact" class="btn btn-outline">Décrire mon besoin</a>
+  </div>
+</section>
+
   <div class="cta-zone">
     <div class="cta-text">
       <p><strong>Vous avez plusieurs niveaux à former ?</strong></p>
@@ -508,6 +647,7 @@
 
 </body>
 </html>
+
 
 
 
