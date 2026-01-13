@@ -1,0 +1,38 @@
+[
+  {
+    "quote": "Super concret. Je suis reparti avec une méthode claire pour structurer mes tableaux et éviter les erreurs.",
+    "name": "N.",
+    "role": "Chef d'équipe",
+    "badge": "Avis validé"
+  },
+  {
+    "quote": "J'ai enfin compris comment gagner du temps avec les bons raccourcis et les bons réflexes (tri, filtres, mise en forme).",
+    "name": "S.",
+    "role": "ADV",
+    "badge": "Avis validé"
+  },
+  {
+    "quote": "Le formateur explique le ‘pourquoi’ derrière les formules. Du coup, on retient et on réutilise.",
+    "name": "A.",
+    "role": "Contrôle de gestion",
+    "badge": "Avis validé"
+  },
+  {
+    "quote": "On sent l'approche terrain : logique, progressive, et orientée “résultat sur mon fichier”.",
+    "name": "M.",
+    "role": "Production",
+    "badge": "Avis validé"
+  },
+  {
+    "quote": "Très bon équilibre entre théorie et pratique. Les exercices sont réellement utiles au quotidien.",
+    "name": "L.",
+    "role": "Logistique",
+    "badge": "Avis validé"
+  },
+  {
+    "quote": "Le plus utile : comprendre comment éviter les fichiers ‘usine à gaz’ et sécuriser les calculs.",
+    "name": "C.",
+    "role": "Assistante",
+    "badge": "Avis validé"
+  }
+]
