@@ -71,6 +71,14 @@
     }
 
     .nav-links a:hover { background: var(--grey-light); }
+/* Lien actif (page en cours) */
+.nav-links a.is-active{
+  background: var(--primary);
+  color: #fff;
+}
+.nav-links a.is-active:hover{
+  background: var(--primary-dark);
+}
 
     .btn-outline {
       border: 1px solid var(--primary-dark);
@@ -418,11 +426,14 @@
     <div class="nav-left">
       <img src="assets/img/Logo.png" alt="Logo ProcessXcel">
     </div>
-    <nav class="nav-links">
-      <a href="index.html" class="btn-outline">← Accueil</a>
-      <a href="formateurs.html">Formateurs</a>
-      <a href="tarifs.html">Tarifs</a>
-    </nav>
+        <nav class="nav-links">
+          <a href="index.html">Accueil</a>
+          <a href="tarifs.html">Tarifs</a>
+          <a href="formateurs.html">Formateurs</a>
+          <a href="pilote.html" class="is-active">Pilote &amp; témoignages</a>
+          <a href="modalites.html">Modalités &amp; accessibilité</a>
+        </nav>
+
   </div>
 </header>
 
