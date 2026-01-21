@@ -89,6 +89,14 @@
       border-radius:999px;
       font-size:0.85rem;
     }
+/* Lien actif (page en cours) */
+.nav-links a.is-active{
+  background: var(--primary);
+  color: #fff;
+}
+.nav-links a.is-active:hover{
+  background: var(--primary-dark);
+}
 
     main{
       max-width:var(--max-width);
@@ -228,10 +236,13 @@
         <div class="brand-tagline">La formation Excel enfin pensée pour vous</div>
       </div>
     </div>
-    <nav class="nav-links">
-      <a href="index.html" class="btn-outline">← Accueil</a>
-      <a href="tarifs.html">Tarifs</a>
-    </nav>
+      <nav class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="formateurs.html">Formateurs</a>
+        <a href="pilote.html" class="is-active">Pilote &amp; témoignages</a>
+        <a href="modalites.html">Modalités &amp; accessibilité</a>
+      </nav>
   </div>
 </header>
 
@@ -360,6 +371,7 @@
 
 </body>
 </html>
+
 
 
 
