@@ -106,6 +106,14 @@
     .nav-links a:hover {
       background: var(--grey-light);
     }
+/* Lien actif (page en cours) */
+.nav-links a.is-active{
+  background: var(--primary);
+  color: #fff;
+}
+.nav-links a.is-active:hover{
+  background: var(--primary-dark);
+}
 
     .btn {
       display: inline-flex;
@@ -430,7 +438,15 @@
     <div class="nav-left">
       <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
       <div class="brand-wrapper">
-        <div class="brand-text-main">Process<span>Xcel</span></div>
+        <div class="brand-text-main">Process
+          <nav class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="tarifs.html" class="is-active">Tarifs</a>
+            <a href="formateurs.html">Formateurs</a>
+            <a href="pilote.html">Pilote &amp; témoignages</a>
+            <a href="modalites.html">Modalités &amp; accessibilité</a>
+          </nav>
+</div>
         <div class="brand-tagline">La formation Excel enfin pensée pour vous</div>
       </div>
     </div>
@@ -647,6 +663,7 @@
 
 </body>
 </html>
+
 
 
 
