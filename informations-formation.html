@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8" />
+<title>Informations formation – ProcessXcel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Informations complètes : objectifs, programmes, modalités, délais d’accès, évaluations, certification, accessibilité et contact." />
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+:root {
+  --primary: #2e7d32;
+  --primary-dark: #1b5e20;
+  --accent: #ed7d31;
+  --grey-bg: #f5f5f7;
+  --grey-light: #e7e6e6;
+  --text-main: #222222;
+  --text-muted: #555555;
+  --radius: 10px;
+  --shadow-soft: 0 8px 20px rgba(0,0,0,0.06);
+  --max-width: 1100px;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Calibri",sans-serif;color:var(--text-main);background:var(--grey-bg);line-height:1.5;}
+a{color:inherit;text-decoration:none;}
+header{position:sticky;top:0;z-index:20;background:#ffffffee;backdrop-filter:blur(10px);border-bottom:1px solid #ddd;}
+.nav{max-width:var(--max-width);margin:0 auto;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;flex-wrap:wrap;}
+.nav-left{display:flex;align-items:center;gap:0.6rem;white-space:nowrap;}
+.logo-img{height:50px;width:auto;display:block;}
+.brand-wrapper{display:flex;flex-direction:column;}
+.brand-text-main{font-weight:700;font-size:1.15rem;letter-spacing:0.02em;color:var(--primary-dark);}
+.brand-text-main span{color:var(--primary);}
+.brand-tagline{font-size:0.8rem;color:var(--text-muted);margin-top:-2px;}
+.nav-links{display:flex;gap:0.75rem;font-size:0.9rem;align-items:center;flex-wrap:wrap;}
+.nav-links a{padding:0.3rem 0.6rem;border-radius:999px;transition:0.15s;}
+.nav-links a:hover{background:var(--grey-light);}
+.nav-links a.is-active{background:var(--primary);color:#fff;}
+.nav-links a.is-active:hover{background:var(--primary-dark);}
+main{max-width:var(--max-width);margin:0 auto;padding:1.5rem 1rem 2.2rem;}
+h1{font-size:2rem;color:var(--primary-dark);margin:0 0 0.4rem;}
+h1 span{color:var(--accent);}
+.intro{margin:0 0 1.3rem;font-size:0.98rem;color:var(--text-muted);}
+.card{background:#fff;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-soft);border-left:4px solid var(--primary);}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;}
+@media (max-width:900px){.grid{grid-template-columns:1fr;}}
+.pill{display:inline-block;font-size:0.78rem;padding:0.18rem 0.55rem;border-radius:999px;background:#e8f5e9;color:var(--primary-dark);margin-bottom:0.5rem;}
+.muted{color:var(--text-muted);}
+ul{margin:0.35rem 0 0.1rem;padding-left:1.1rem;color:var(--text-muted);}
+li{margin-bottom:0.25rem;}
+hr{border:none;border-top:1px solid #eee;margin:1.1rem 0;}
+.callout{background:#f1f8e9;border:1px solid #dcedc8;border-radius:var(--radius);padding:0.85rem 0.95rem;margin-top:0.75rem;color:var(--text-muted);}
+.badge{display:inline-block;font-size:0.78rem;padding:0.15rem 0.5rem;border-radius:999px;border:1px solid #ddd;background:#fff;color:var(--text-muted);margin-right:0.35rem;}
+.badge.orange{background:#fff3e0;border-color:#ffcc80;color:#e65100;}
+.badge.blue{background:#e3f2fd;border-color:#90caf9;color:#1565c0;}
+footer{margin-top:2rem;padding:1.2rem 1rem 1.5rem;text-align:center;color:var(--text-muted);font-size:0.9rem;}
+footer a:hover{opacity:0.85;}
+
+/* Buttons (harmonised with sur-mesure) */
+.btn{
+  padding:0.35rem 0.8rem;
+  border-radius:999px;
+  font-size:0.9rem;
+  border:1px solid transparent;
+  transition:0.2s;
+}
+.btn-outline{
+  border:1px solid var(--primary);
+  color:var(--primary);
+  background:#fff;
+}
+.btn-outline:hover{
+  background:#e8f5e9;
+}
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+}
+.btn-primary:hover{
+  background:var(--primary-dark);
+}
+.btn-tarif{
+  border:1px solid var(--primary);
+  background:var(--primary);
+  color:#fff;
+}
+.btn-tarif:hover{
+  background:var(--primary-dark);
+}
+
+/* Clickable brand */
+.brand-link{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  text-decoration:none;
+  color:inherit;
+}
+.brand-link:hover .brand-text-main{
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.brand-link:focus-visible{
+  outline:3px solid rgba(46,125,50,0.35);
+  outline-offset:4px;
+  border-radius:10px;
+}
+</style>
+</head><body>
+
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a href="index.html" class="brand-link" aria-label="Aller à l'accueil ProcessXcel">
+        <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
+        <div class="brand-wrapper">
+          <div class="brand-text-main">Process<span>Xcel</span></div>
+          <div class="brand-tagline">
+            Vos fichiers deviennent des outils. Vos équipes deviennent autonomes.
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <nav class="nav-links">
+      <a href="tarifs.html" class="btn btn-outline">Tarifs & packs</a>
+      <a href="sur-mesure.html" class="btn btn-outline">Optimisation & sur mesure</a>
+      <a href="informations-formation.html" class="btn btn-tarif is-active">Informations formation</a>
+      <a href="formateurs.html" class="btn btn-outline">Formateurs</a>
+      <a href="pilote.html" class="btn btn-outline">Pilote & témoignages</a>
+      <a href="modalites.html" class="btn btn-outline">Modalités & accessibilité</a>
+      <a href="index.html#contact" class="btn btn-primary">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<h1>Informations <span>formation</span></h1>
+<p class="intro">
+Cette page regroupe toutes les informations essentielles sur nos formations Excel : objectifs, contenus, modalités, délais d’accès, évaluations, certification, accessibilité, documents et contacts.
+</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="pill">Synthèse</div>
+    <ul>
+      <li><strong>Formations Excel sur mesure</strong> – du niveau 1 au niveau 5, alignées sur le référentiel TOSA.</li>
+      <li><strong>Formats</strong> : présentiel (en entreprise / en centre), distanciel, mixte, e‑learning + sessions live, individuel ou petits groupes.</li>
+      <li><strong>Durées indicatives</strong> : de 1 à 2 jours par niveau (adaptable).</li>
+      <li><strong>Évaluation</strong> : positionnement amont + exercices tout au long + évaluation finale + attestation de fin de formation.</li>
+      <li><strong>Accessibilité / handicap</strong> : analyse individualisée et adaptations possibles.</li>
+    </ul>
+    <div class="callout">
+      <strong>Besoin d’un devis ?</strong><br>
+      Décrivez votre contexte (niveau, effectif, objectifs, contraintes) et nous vous proposons un programme et un planning adaptés.
+      <div style="margin-top:0.6rem;">
+        <a class="badge blue" href="index.html#contact">Formulaire de contact</a>
+        <a class="badge" href="mailto:contact@processxcel.fr">contact@processxcel.fr</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="pill">Repères Qualiopi (Critère 1)</div>
+    <p class="muted" style="margin-top:0;">
+      L’objectif est que toute personne puisse trouver rapidement :
+      <strong>le programme</strong>, <strong>les objectifs</strong>, <strong>les prérequis</strong>,
+      <strong>les tarifs</strong>, <strong>les délais d’accès</strong>, <strong>l’accessibilité</strong>,
+      <strong>les modalités d’évaluation</strong> et <strong>les contacts</strong>.
+    </p>
+    <ul>
+      <li>Programmes et niveaux : <a href="tarifs.html" style="text-decoration:underline;color:var(--primary);">Tarifs &amp; durées</a></li>
+      <li>Délais d’accès &amp; accessibilité : <a href="modalites.html" style="text-decoration:underline;color:var(--primary);">Modalités</a></li>
+      <li>Accueil / suivi / évaluations : <a href="modalites.html#evaluation" style="text-decoration:underline;color:var(--primary);">Modalités d’évaluation</a> (si section présente)</li>
+    </ul>
+    <div class="callout">
+      <strong>Important :</strong> nos tarifs affichés sur le site sont <strong>indicatifs</strong>. Le tarif final est confirmé sur devis, selon le format, le volume horaire, le nombre de participants et les adaptations demandées.
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">1) Objectifs pédagogiques</div>
+  <p class="muted" style="margin-top:0;">
+    À l’issue de la formation, le bénéficiaire est capable d’utiliser Excel de manière plus efficace et sécurisée
+    dans son contexte professionnel, avec des objectifs opérationnels adaptés au niveau et aux besoins.
+  </p>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Exemples d’objectifs (selon niveau)</h2>
+      <ul>
+        <li><strong>Niveau 1</strong> : prise en main, mise en forme simple, premières formules, navigation et bonnes pratiques.</li>
+        <li><strong>Niveau 2</strong> : fiabiliser les fichiers, tris/filtres, mise en page, fonctions essentielles (SI, etc.).</li>
+        <li><strong>Niveau 3</strong> : analyse de données, RECHERCHE/INDEX‑EQUIV, TCD, automatisations légères.</li>
+        <li><strong>Niveau 4</strong> : modèles multi‑feuilles, audit/fiabilisation, validations, tableaux de bord.</li>
+        <li><strong>Niveau 5</strong> : maîtrise avancée, préparation TOSA, options et fonctionnalités expertes (Power Query / macros selon besoin).</li>
+      </ul>
+      <h2 style="margin:1rem 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Objectifs détaillés par niveau</h2>
+
+      <h3 style="margin:0.6rem 0 0.25rem;color:var(--primary-dark);font-size:1rem;">Niveau 1 — Initial</h3>
+      <ul>
+        <li>Créer et organiser un classeur (feuilles, structure, bonnes pratiques).</li>
+        <li>Saisir, mettre en forme et contrôler des données simples.</li>
+        <li>Utiliser les formules de base (SOMME, MOYENNE, MIN/MAX, SI simple).</li>
+        <li>Trier/filtrer des données et préparer un tableau propre.</li>
+        <li>Mettre en page un tableau pour impression / partage.</li>
+      </ul>
+
+      <h3 style="margin:0.6rem 0 0.25rem;color:var(--primary-dark);font-size:1rem;">Niveau 2 — Basique</h3>
+      <ul>
+        <li>Fiabiliser un tableau : formats cohérents, contrôles, validations simples.</li>
+        <li>Exploiter tris, filtres avancés et mises en forme conditionnelles.</li>
+        <li>Construire des calculs fiables (SI, ET/OU, fonctions texte et date selon besoin).</li>
+        <li>Gérer les erreurs courantes (valeurs manquantes, divisions, références).</li>
+        <li>Préparer un tableau prêt pour analyse (structure en “table”, colonnes propres).</li>
+      </ul>
+
+      <h3 style="margin:0.6rem 0 0.25rem;color:var(--primary-dark);font-size:1rem;">Niveau 3 — Opérationnel</h3>
+      <ul>
+        <li>Mettre en place des recherches (RECHERCHEX / INDEX+EQUIV) selon le contexte.</li>
+        <li>Structurer des données (tables, clés, cohérence) pour éviter les erreurs.</li>
+        <li>Créer et exploiter des tableaux croisés dynamiques (TCD) pour analyser.</li>
+        <li>Construire des indicateurs simples (KPI) et des synthèses fiables.</li>
+        <li>Automatiser des tâches légères (modèles, listes, contrôles, bonnes pratiques).</li>
+      </ul>
+
+      <h3 style="margin:0.6rem 0 0.25rem;color:var(--primary-dark);font-size:1rem;">Niveau 4 — Expert</h3>
+      <ul>
+        <li>Construire des modèles multi‑feuilles robustes (structure, contrôles, fiabilité).</li>
+        <li>Auditer des formules et identifier les sources d’erreurs / incohérences.</li>
+        <li>Mettre en place des validations et sécurisations pour fichiers partagés.</li>
+        <li>Créer des tableaux de bord et graphiques adaptés à la décision.</li>
+        <li>Optimiser la lisibilité et la maintenabilité d’un fichier “référent”.</li>
+      </ul>
+
+      <h3 style="margin:0.6rem 0 0.25rem;color:var(--primary-dark);font-size:1rem;">Niveau 5 — TOSA complet</h3>
+      <ul>
+        <li>Maîtriser un ensemble large de fonctions avancées et options de calcul.</li>
+        <li>Appliquer une approche critique : fiabilisation, performance, bonnes pratiques.</li>
+        <li>Se préparer à une évaluation type certification (QCM + cas pratiques).</li>
+        <li>Identifier ses axes de progrès et planifier une révision autonome.</li>
+        <li>Intégrer, si besoin, des notions avancées (Power Query / macros) selon contexte.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>Note :</strong> les objectifs exacts sont confirmés dans le programme transmis avec le devis, après recueil du besoin et positionnement.
+      </div>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Adaptation sur mesure</h2>
+      <p class="muted">
+        Les objectifs sont affinés après un <strong>diagnostic / positionnement</strong> (questionnaire et échanges)
+        afin de coller au métier : achats, production, RH, gestion, logistique, etc.
+      </p>
+      <div class="callout">
+        <strong>Livrables possibles :</strong> supports pédagogiques, fichiers d’exercices corrigés, modèles réutilisables, recommandations d’amélioration.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">2) Public visé, prérequis, moyens</div>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Public</h2>
+      <p class="muted">Salariés, managers, dirigeants, assistants, techniciens, cadres… toute personne utilisant Excel dans un cadre professionnel.</p>
+      <h2 style="margin:0.8rem 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Prérequis</h2>
+      <ul>
+        <li>Disposer d’un ordinateur avec Microsoft Excel (version précisée si contrainte entreprise).</li>
+        <li>Réaliser un <strong>test de positionnement</strong> préalable (sauf exception explicitée).</li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Moyens mobilisés</h2>
+      <ul>
+        <li>Supports : présentations illustrées + exercices + corrigés.</li>
+        <li>Cas concrets : exemples métiers, fichiers de l’entreprise (si fourni).</li>
+        <li>Outils : Excel (Microsoft 365 ou version client), partage écran en distanciel, ressources complémentaires.</li>
+      </ul>
+      <div class="callout">
+        <strong>Encadrement :</strong> accompagnement pas à pas, temps de questions, corrections commentées, exercices progressifs.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">3) Formats, durées, tarifs</div>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Formats possibles</h2>
+      <ul>
+        <li>Présentiel en entreprise ou en centre</li>
+        <li>Classes virtuelles en distanciel</li>
+        <li>Accompagnement individuel / petits groupes</li>
+        <li>Parcours mixte : e‑learning + sessions live</li>
+        <li>Sessions fractionnées (ex : 2×½ journée) selon contraintes</li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Durées typiques (indicatives)</h2>
+      <ul>
+        <li>Niveau 1 &amp; 2 : 1 à 2 jours chacun</li>
+        <li>Niveau 3 &amp; 4 : 2 jours chacun</li>
+        <li>Niveau 5 : 2 jours + préparation autonome (selon objectif)</li>
+      </ul>
+      <div class="callout">
+        <strong>Tarifs :</strong> voir <a href="tarifs.html" style="text-decoration:underline;color:var(--primary);">la page Tarifs</a> (tarifs indicatifs / intra-entreprise). Devis transmis après analyse du besoin.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">4) Délais d’accès</div>
+  <p class="muted" style="margin-top:0;">
+    Le délai d’accès dépend du besoin, du format et des disponibilités. Un délai estimatif est communiqué lors de l’envoi du devis.
+    Les informations détaillées sont disponibles sur la page <a href="modalites.html" style="text-decoration:underline;color:var(--primary);">Modalités</a>.
+  </p>
+  <div class="callout">
+    <strong>Principe :</strong> après validation du devis et contractualisation, la formation peut être planifiée dans un délai moyen de <strong>10 à 30 jours</strong> (ajustable selon contraintes).
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">5) Accueil, suivi et évaluation des acquis</div>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Avant la formation (positionnement)</h2>
+      <ul>
+        <li>Recueil du besoin (objectifs, contexte, contraintes).</li>
+        <li>Questionnaire / auto‑évaluation du niveau.</li>
+        <li>Adaptation du programme et des exercices.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Pendant &amp; fin de formation</h2>
+      <ul>
+        <li>Exercices pratiques et mises en situation (évaluation formative).</li>
+        <li>Correction commentée + points d’amélioration.</li>
+        <li>Évaluation finale + remise d’une <strong>attestation de fin de formation</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    Les modalités détaillées (accueil, suivi, évaluation, réclamations) sont décrites sur la page <a href="modalites.html" style="text-decoration:underline;color:var(--primary);">Modalités &amp; accessibilité</a>.
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">6) Certification (TOSA Excel)</div>
+  <div class="grid">
+    <div>
+      <p class="muted" style="margin-top:0;">
+        Nos niveaux sont alignés sur le référentiel officiel <strong>TOSA Excel</strong>. Nous préparons les bénéficiaires via des exercices type QCM et cas pratiques.
+      </p>
+      <ul>
+        <li>Préparation possible pendant la formation</li>
+        <li>Consolidation des notions clés selon le niveau</li>
+        <li>Conseils de méthodologie et gestion du temps</li>
+      </ul>
+    </div>
+    <div>
+      <p class="muted" style="margin-top:0;">
+        La passation peut être intégrée via un <strong>centre partenaire</strong> (option selon contexte). Le devis précise les modalités (si applicable).
+      </p>
+      <div class="callout">
+        <strong>Transparence :</strong> si la certification n’est pas proposée (ou non applicable), cela est indiqué dans le devis et le programme.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">7) Accessibilité &amp; handicap</div>
+  <p class="muted" style="margin-top:0;">
+    ProcessXcel veille à rendre ses formations accessibles au plus grand nombre. Toute demande fait l’objet d’une analyse individualisée
+    afin de proposer des solutions adaptées dans la mesure du possible.
+  </p>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Référent accessibilité</h2>
+      <ul>
+        <li>Contact : <a href="mailto:contact@processxcel.fr" style="text-decoration:underline;color:var(--primary);">contact@processxcel.fr</a></li>
+        <li>Réponse sous 48h ouvrées (objectif)</li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Process (résumé)</h2>
+      <ul>
+        <li>Recueil des besoins (échange + questionnaire si besoin)</li>
+        <li>Analyse des adaptations possibles (rythme, supports, outils, aménagements)</li>
+        <li>Validation avec l’apprenant / l’entreprise</li>
+        <li>Suivi pendant la formation + ajustements</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    Le détail du processus interne est formalisé dans une procédure dédiée (utilisée en interne et présentable en audit).
+  </div>
+</div>
+
+<hr>
+
+<div class="card">
+  <div class="pill">8) Documents et contacts</div>
+  <div class="grid">
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Où trouver quoi ?</h2>
+      <ul>
+        <li>Tarifs / durées / niveaux : <a href="tarifs.html" style="text-decoration:underline;color:var(--primary);">Tarifs</a></li>
+        <li>Modalités d’accès &amp; accessibilité : <a href="modalites.html" style="text-decoration:underline;color:var(--primary);">Modalités</a></li>
+        <li>Formateurs : <a href="formateurs.html" style="text-decoration:underline;color:var(--primary);">Formateurs</a></li>
+        <li>Atelier pilote &amp; témoignages : <a href="pilote.html" style="text-decoration:underline;color:var(--primary);">Pilote</a></li>
+        <li>Conditions de vente : <a href="cgv.html" style="text-decoration:underline;color:var(--primary);">CGV</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="margin:0 0 0.4rem;color:var(--primary-dark);font-size:1.1rem;">Contact</h2>
+      <ul>
+        <li>Email : <a href="mailto:contact@processxcel.fr" style="text-decoration:underline;color:var(--primary);">contact@processxcel.fr</a></li>
+        <li>Demande de devis : <a href="index.html#contact" style="text-decoration:underline;color:var(--primary);">formulaire</a></li>
+      </ul>
+      <div class="callout">
+        <strong>Astuce :</strong> pour une réponse rapide, indiquez votre niveau estimé, le nombre de participants, le format souhaité et vos contraintes de planning.
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<footer>
+  <div style="text-align:center;">
+    © 2026 – ProcessXcel – Formations Excel<br>
+    <div style="margin-top:8px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; font-size:0.85rem;">
+      <a href="informations-formation.html" style="color:#2e7d32; text-decoration:underline;">Informations formation</a>
+      <a href="modalites.html" style="color:#2e7d32; text-decoration:underline;">Modalités &amp; accessibilité</a>
+      <a href="cgv.html" style="color:#2e7d32; text-decoration:underline;">CGV</a>
+      <a href="mentions-legales.html" style="color:#2e7d32; text-decoration:underline;">Mentions légales</a>
+      <a href="politique-confidentialite.html" style="color:#2e7d32; text-decoration:underline;">Politique de confidentialité</a>
+      <a href="cgu.html" style="color:#2e7d32; text-decoration:underline;">Conditions d’utilisation</a>
+      <a href="cookies.html" style="color:#2e7d32; text-decoration:underline;">Politique cookies</a>
+    </div>
+    <div style="margin-top:10px; font-size:0.8rem; color:#555;">
+      Dernière mise à jour : <strong>22/01/2026</strong>
+    </div>
+  </div>
+</footer>
+</body></html>
