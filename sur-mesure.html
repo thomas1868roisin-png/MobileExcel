@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>ProcessXcel – Optimisation &amp; création de fichiers Excel sur mesure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Optimisation et création de fichiers Excel sur mesure : diagnostic, fiabilisation, automatisation, tableaux de bord et formation des équipes sur leurs outils réels." />
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <style>
+
+    :root {
+      --primary: #2e7d32;       /* Vert principal ProcessXcel */
+      --primary-dark: #1b5e20;  /* Vert foncé */
+      --accent: #ed7d31;        /* Orange accent */
+      --yellow: #ffc000;
+      --green-soft: #70ad47;
+      --grey-light: #e7e6e6;
+      --grey-bg: #f5f5f7;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --radius: 10px;
+      --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.06);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, "Calibri", sans-serif;
+      color: var(--text-main);
+      background: var(--grey-bg);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ========== HEADER / NAV ========== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #ffffffee;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-text-main {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      color: var(--primary-dark);
+    }
+
+    .brand-text-main span {
+      color: var(--primary);
+    }
+
+    .brand-tagline {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+
+    .brand-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--grey-light);
+    }
+    
+/* Lien actif (page en cours) */
+.nav-links a.is-active{
+  background: var(--primary);
+  color: #fff;
+}
+.nav-links a.is-active:hover{
+  background: var(--primary-dark);
+}
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.3rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      gap: 0.3rem;
+      align-items: center;
+    }
+    .btn-pilote {
+      background: #eef8ff;
+      color: #1565c0;
+      border: 1px solid #90caf9;
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+      border-radius: 999px;
+    }
+
+    .btn-pilote:hover {
+      background: #1565c0;
+      color: #fff;
+    }
+    .nav-toggle span {
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--text-main);
+      position: relative;
+    }
+
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: var(--text-main);
+    }
+
+    .nav-toggle span::before {
+      top: -5px;
+    }
+
+    .nav-toggle span::after {
+      top: 5px;
+    }
+
+    /* ========== LAYOUT GLOBAL ========== */
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+
+    section {
+      padding: 1.4rem 0 0.4rem;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin: 0 0 0.3rem;
+    }
+
+    .section-intro {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ========== HERO ========== */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.6rem;
+      align-items: center;
+      padding: 1.4rem 0 1.8rem;
+    }
+
+    .hero-left h1 {
+      font-size: 2.2rem;
+      margin: 0 0 0.5rem;
+      color: var(--primary-dark);
+    }
+
+    .hero-left h1 span {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      margin: 0 0 0.8rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #ddd;
+      color: var(--text-muted);
+    }
+
+    .badge.blue {
+      background: #e3f2fd;
+      border-color: #90caf9;
+      color: #1565c0;
+    }
+
+    .badge.orange {
+      background: #fff3e0;
+      border-color: #ffcc80;
+      color: #e65100;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--primary-dark);
+      border: 1px solid var(--primary-dark);
+    }
+
+    .btn-outline:hover {
+      background: rgba(46, 125, 50, 0.06);
+    }
+    .btn-formateurs {
+      background: #f0f0f0;
+      color: #444;
+      border: 1px solid #d5d5d5;
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+      border-radius: 999px;
+    }
+    
+    .btn-formateurs:hover {
+      background: #dcdcdc;
+      color: #111;
+    }
+
+    /* Bouton Tarifs spécifique (header + contact) */
+    .btn-tarif {
+      background: #fff8f2;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .btn-tarif:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-right {
+      background: #fff;
+      padding: 1.1rem 1.3rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border-left: 4px solid var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .hero-right h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-right ul {
+      padding-left: 1.1rem;
+      margin: 0.3rem 0 0.7rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-right li {
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid #eee;
+      padding-top: 0.6rem;
+    }
+
+    /* ========== CARTES & GRILLES ========== */
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+
+    .card p {
+      margin: 0.2rem 0;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: #f1f1f1;
+      margin-bottom: 0.25rem;
+    }
+
+    .tag.green {
+      background: #e8f5e9;
+      color: #1b5e20;
+    }
+
+    .tag.yellow {
+      background: #fffde7;
+      color: #f57f17;
+    }
+
+    .tag.orange {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    /* ========== NIVEAUX ========== */
+
+    .levels {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .level-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .level-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .level-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .level-topics {
+      margin: 0.3rem 0 0.4rem;
+      padding-left: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .level-topics li {
+      margin-bottom: 0.15rem;
+    }
+
+    .level-badge {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #e8f5e9;
+      color: #1b5e20;
+      margin-top: auto;
+    }
+
+    /* ========== EXEMPLES ========== */
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .example-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .example-card h3 {
+      margin: 0;
+      color: var(--primary-dark);
+    }
+
+    .example-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .example-actions {
+      margin-top: 0.4rem;
+    }
+
+    /* ========== FORMATS, ABOUT, CONTACT ========== */
+
+    .audiences,
+    .formats,
+    .about {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .formats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-highlight {
+      background: #f1f8e9;
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    .about-highlight h3 {
+      margin-top: 0;
+      color: var(--primary-dark);
+    }
+
+    .about-highlight ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1rem;
+      color: var(--text-muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    form {
+      background: #fff;
+      padding: 0.9rem 1rem 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+    }
+
+    form div {
+      margin-bottom: 0.7rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.45rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .contact-info {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-info p {
+      margin: 0 0 0.5rem;
+    }
+
+    .contact-info strong {
+      color: var(--primary-dark);
+    }
+
+    .contact-info .btn-tarif {
+      margin-top: 0.4rem;
+    }
+
+    /* ========== FOOTER ========== */
+
+    footer {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    /* ========== RESPONSIVE ========== */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 1.3rem;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .grid-3,
+      .levels,
+      .audiences,
+      .formats,
+      .about,
+      .examples-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .levels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .examples-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 0.4rem;
+      }
+
+      .nav-links a {
+        padding: 0.4rem 0.6rem;
+      }
+
+      .nav-links.nav-open {
+        display: flex;
+      }
+
+      .btn {
+        flex: 1 1 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        padding: 1rem 0.8rem 1.5rem;
+      }
+
+      .levels {
+        grid-template-columns: 1fr;
+      }
+
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 1.2rem 0 1.6rem;
+      }
+
+      .hero-left h1 {
+        font-size: 1.9rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+    }
+    .custom-workshop-home {
+  margin-top: 2rem;
+  padding: 1.3rem 1.6rem;
+  background: #f1f8f4;
+  border-left: 5px solid #2e7d32;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.custom-workshop-home h3 {
+  margin-top: 0;
+  color: #1b5e20;
+}
+
+.custom-workshop-home p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.custom-workshop-home a {
+  display: inline-block;
+  margin-top: 0.6rem;
+}
+.custom-build-home {
+  margin: 3rem 0;
+  padding: 1.6rem 1.8rem;
+  background: linear-gradient(90deg, #ffffff, #f6f9f7);
+  border-top: 4px solid #2e7d32;
+  border-bottom: 4px solid #2e7d32;
+  text-align: center;
+}
+
+.custom-build-home h3 {
+  margin: 0.4rem 0 0.6rem;
+  color: #1b5e20;
+}
+
+.custom-build-home p {
+  max-width: 760px;
+  margin: 0.4rem auto;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.custom-build-home .service-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #e8f5e9;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+  
+
+    /* Sommaire flottant (index) — ne modifie pas la mise en page centrée */
+    .side-toc {
+      position: fixed;
+      left: 18px;
+      top: 110px;
+      width: 220px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 10px;
+      z-index: 15;
+    }
+    .side-toc-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .side-toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--text-main);
+      padding: 6px 8px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+    .side-toc a:hover {
+      background: var(--grey-light);
+    }
+    /* Cache le sommaire sur mobile/tablette et quand l’écran est trop étroit */
+    @media (max-width: 1100px) {
+      .side-toc { display: none; }
+    }
+
+
+/* Petits ajouts spécifiques page sur-mesure */
+.hero-right { border-left-color: var(--accent); }
+.kpi-grid {
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+}
+.kpi {
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 0.9rem;
+  font-size: 0.9rem;
+  border-top: 4px solid var(--primary);
+}
+.kpi strong { color: var(--primary-dark); display:block; margin-bottom:0.2rem; }
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+.faq details {
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  border-left: 4px solid var(--primary);
+}
+.faq summary {
+  cursor:pointer;
+  font-weight:700;
+  color: var(--primary-dark);
+}
+.faq p {
+  color: var(--text-muted);
+  margin: 0.5rem 0 0;
+}
+  
+/* Header brand clickable (keeps original alignment) */
+.brand-link{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  text-decoration:none;
+  color:inherit;
+}
+.brand-link:hover .brand-text-main{
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.brand-link:focus-visible{
+  outline:3px solid rgba(46,125,50,0.35);
+  outline-offset:4px;
+  border-radius:10px;
+}
+/* Avoid double margins when wrapped */
+.brand-link .logo-img{ margin:0; }
+
+/* ========== DÉMOS VIDÉOS (sur-mesure) ========== */
+.demo-block{ margin-top: 1.1rem; }
+.demo-grid-2{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.demo-grid-1{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.demo-card{
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 0.9rem;
+}
+.demo-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  margin-bottom: 0.55rem;
+}
+.demo-pill{
+  display:inline-block;
+  font-size: 0.78rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.demo-pill-before{ background:#fff3e0; color:#e65100; border-color: rgba(230,81,0,0.25); }
+.demo-pill-after{ background:#e8f5e9; color:#1b5e20; border-color: rgba(27,94,32,0.25); }
+.demo-pill-focus{ background:#eef6f0; color:#1b5e20; border-color: rgba(46,125,50,0.25); }
+
+.video-wrap{
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.video-wrap iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.demo-bullets{
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.demo-bullets li{ margin-bottom: 0.25rem; }
+.demo-title-row{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 0 0 0.55rem;
+}
+.demo-title-row h3{
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+}
+.demo-mini{
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.demo-quote{
+  margin-top: 0.75rem;
+  background: #f1f8e9;
+  border: 1px solid rgba(46,125,50,0.20);
+  color:#0b3d12;
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+  font-weight: 700;
+}
+@media (max-width: 900px){
+  .demo-grid-2{ grid-template-columns: 1fr; }
+}
+
+
+
+/* ====== CALCULATEUR ROI (temps & €) ====== */
+.roi-calc{
+  padding: 2.2rem 0;
+}
+.roi-calc .calc-wrap{
+  background:#fff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  padding: 1.2rem 1.2rem 1rem;
+  border: 1px solid #e8e8e8;
+}
+.roi-calc .calc-head{
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+  margin-bottom: .9rem;
+}
+.roi-calc .calc-head h2{
+  margin:0;
+  color: var(--primary-dark);
+}
+.roi-calc .calc-head p{
+  margin:0;
+  color: var(--text-muted);
+}
+.calc-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.calc-panel{
+  background: var(--grey-bg);
+  border-radius: 14px;
+  padding: 0.95rem;
+  border: 1px solid #e3e3e3;
+}
+.calc-panel h3{
+  margin: 0 0 .5rem 0;
+  color: var(--primary-dark);
+  font-size: 1rem;
+}
+.calc-row{
+  display:grid;
+  grid-template-columns: 1fr 160px;
+  gap: .6rem;
+  align-items:center;
+  margin: .55rem 0;
+}
+.calc-row label{
+  font-weight: 600;
+  font-size: .85rem;
+}
+.calc-row .help{
+  display:block;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: .78rem;
+  margin-top: 2px;
+}
+.calc-row input[type="number"]{
+  width: 100%;
+  padding: .48rem .55rem;
+  border-radius: 10px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  font-size: .92rem;
+}
+.calc-row input[type="range"]{
+  width: 100%;
+}
+.calc-inline{
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+  justify-content:space-between;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  font-size: .78rem;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #ddd;
+  color: var(--text-muted);
+  white-space:nowrap;
+}
+.pill strong{ color: var(--text-main); }
+.results{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .8rem;
+}
+.kpi{
+  background:#fff;
+  border-radius: 14px;
+  padding: .85rem .9rem;
+  border: 1px solid #ededed;
+  box-shadow: 0 6px 16px rgba(0,0,0,.04);
+}
+.kpi .kpi-title{
+  font-size:.78rem;
+  color: var(--text-muted);
+  margin:0 0 .25rem 0;
+}
+.kpi .kpi-value{
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin:0;
+  color: var(--primary-dark);
+}
+.kpi .kpi-sub{
+  margin:.2rem 0 0 0;
+  font-size:.8rem;
+  color: var(--text-muted);
+}
+.roi-note{
+  margin-top: .85rem;
+  font-size: .82rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.calc-actions{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+  margin-top: .9rem;
+}
+.btn-ghost{
+  background:#fff;
+  color: var(--text-main);
+  border: 1px solid #d6d6d6;
+}
+.btn-ghost:hover{
+  background: var(--grey-light);
+}
+@media (max-width: 980px){
+  .calc-grid{ grid-template-columns: 1fr; }
+  .calc-row{ grid-template-columns: 1fr; }
+}
+
+
+</style>
+</head>
+
+<body>
+<header>
+    <div class="nav">
+      <!-- Logo + marque -->
+      <div class="nav-left">
+        <a href="index.html" class="brand-link" aria-label="Aller à l'accueil ProcessXcel">
+          <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
+        <div class="brand-wrapper">
+          <div class="brand-text-main">Process<span>Xcel</span></div>
+          <div class="brand-tagline">Vos fichiers deviennent des outils. Vos équipes deviennent autonomes.</div>
+        </div>
+        </a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span>
+      </button>
+
+      <nav class="nav-links">
+
+        <!-- Bouton Tarifs distinct, menant vers une page séparée -->
+        <a href="tarifs.html" class="btn btn-tarif">Tarifs &amp; packs</a>
+        <a href="sur-mesure.html" class="btn btn-outline is-active">Optimisation &amp; sur mesure</a>
+        <a href="informations-formation.html" class="btn btn-outline">Informations formation</a>
+        <a href="formateurs.html" class="btn btn-formateurs">Formateurs</a>
+        <a href="pilote.html" class="btn btn-pilote">Pilote &amp; témoignages</a>
+        <a href="modalites.html" class="btn btn-outline">Modalités &amp; accessibilité</a>
+        <a href="#contact" class="btn btn-primary">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-left">
+      <h1>Optimisation &amp; création de fichiers Excel <span>sur mesure</span></h1>
+      <p class="hero-subtitle">
+        Vous avez un fichier “historique” fragile, trop lent, incompris… ou un besoin métier qui dépasse une formation ?
+        Nous concevons (ou refondons) un outil Excel fiable et évolutif, puis nous formons vos équipes dessus.
+      </p>
+      <div class="hero-badges">
+        <span class="badge blue">Diagnostic + plan d’action</span>
+        <span class="badge orange">Automatisation &amp; fiabilisation</span>
+        <span class="badge">Formation sur vos fichiers réels</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="index.html#contact">Demander un diagnostic</a>
+        <a class="btn btn-outline" href="#offres">Voir ce que nous livrons</a>
+      </div>
+      <p class="hero-note">
+        Objectif : un outil utilisable par plusieurs personnes, qui tient dans le temps, et une autonomie réelle des utilisateurs.
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <h2>Ce que ça change concrètement</h2>
+      <p class="hero-tagline">Vos équipes gagnent sur 3 axes :</p>
+      <ul>
+        <li>Moins d’erreurs (contrôles de cohérence, structure claire)</li>
+        <li>Moins de temps perdu (automatisation, simplification, performance)</li>
+        <li>Plus d’autonomie (formation sur votre outil + bonnes pratiques)</li>
+      </ul>
+      <p class="hero-tagline">Idéal pour : reporting, budgets, suivi d’activité, achats, stocks, planification, dashboards.</p>
+    </div>
+  </section>
+
+  
+
+  <section class="roi-calc" id="calculateur" aria-labelledby="calc-title">
+  <div class="calc-wrap">
+    <div class="calc-head">
+      <h2 id="calc-title">Calculateur : temps perdu &amp; gains potentiels</h2>
+      <p>
+        Estimez rapidement le <strong>temps passé</strong> sur des tâches Excel manuelles (consolidations, ressaisies, corrections…),
+        puis l’<strong>impact financier</strong> et le <strong>gain récupérable</strong> après optimisation.
+      </p>
+    </div>
+
+    <div class="calc-grid">
+      <!-- Entrées -->
+      <div class="calc-panel" aria-label="Entrées du calculateur">
+        <h3>1) Situation actuelle</h3>
+
+        <div class="calc-row">
+          <div>
+            <label for="px_emp">Employés concernés</label>
+            <span class="help">Nombre de personnes qui font la tâche / utilisent le fichier</span>
+          </div>
+          <input type="number" id="px_emp" min="1" step="1" value="5">
+        </div>
+
+        <div class="calc-row">
+          <div>
+            <label for="px_min">Temps passé par employé</label>
+            <span class="help">En minutes par jour (sur la tâche ciblée)</span>
+          </div>
+          <input type="number" id="px_min" min="0" step="5" value="30">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-inline">
+            <div>
+              <label for="px_days">Jours travaillés / mois</label>
+              <span class="help">Valeur typique : 20 à 22 jours</span>
+            </div>
+            <span class="pill"><strong id="px_days_out">21</strong>&nbsp;jours</span>
+          </div>
+          <input type="range" id="px_days" min="15" max="23" step="1" value="21" aria-label="Jours travaillés par mois">
+        </div>
+
+        <div class="calc-row">
+          <div>
+            <label for="px_cost">Coût horaire chargé</label>
+            <span class="help">Estimation (salaire + charges). Exemple : 35–55 € / heure</span>
+          </div>
+          <input type="number" id="px_cost" min="0" step="1" value="45">
+        </div>
+
+        <h3 style="margin-top:1rem;">2) Après optimisation</h3>
+
+        <div class="calc-row">
+          <div class="calc-inline">
+            <div>
+              <label for="px_red">Réduction de temps estimée</label>
+              <span class="help">Selon le cas : 10% (léger) → 60%+ (fort)</span>
+            </div>
+            <span class="pill"><strong id="px_red_out">40</strong>&nbsp;%</span>
+          </div>
+          <input type="range" id="px_red" min="5" max="80" step="1" value="40" aria-label="Pourcentage de réduction du temps">
+        </div>
+
+        <div class="calc-row">
+          <div>
+            <label for="px_fee">Budget prestation (optionnel)</label>
+            <span class="help">Pour estimer un ROI (vous pouvez laisser vide)</span>
+          </div>
+          <input type="number" id="px_fee" min="0" step="100" placeholder="Ex : 2500">
+        </div>
+
+        <div class="calc-actions">
+          <a class="btn btn-primary" href="#contact">Demander un diagnostic</a>
+          <button type="button" class="btn btn-ghost" id="px_reset">Réinitialiser</button>
+        </div>
+
+        <div class="roi-note">
+          <strong>Note :</strong> cette estimation sert de point de départ. Le gain réel dépend du niveau d’automatisation possible,
+          de la qualité des données et de la fréquence d’usage. Nous affinons lors d’un diagnostic sur vos fichiers.
+        </div>
+      </div>
+
+      <!-- Résultats -->
+      <div class="calc-panel" aria-label="Résultats du calculateur">
+        <h3>Résultats</h3>
+
+        <div class="results">
+          <div class="kpi">
+            <p class="kpi-title">Temps “consommé” / mois</p>
+            <p class="kpi-value" id="px_hours_month">—</p>
+            <p class="kpi-sub">heures/mois sur la tâche</p>
+          </div>
+
+          <div class="kpi">
+            <p class="kpi-title">Coût actuel / mois</p>
+            <p class="kpi-value" id="px_cost_month">—</p>
+            <p class="kpi-sub">coût en temps de travail</p>
+          </div>
+
+          <div class="kpi">
+            <p class="kpi-title">Coût actuel / an</p>
+            <p class="kpi-value" id="px_cost_year">—</p>
+            <p class="kpi-sub">projection sur 12 mois</p>
+          </div>
+
+          <div class="kpi">
+            <p class="kpi-title">Gain potentiel / an</p>
+            <p class="kpi-value" id="px_gain_year">—</p>
+            <p class="kpi-sub">selon la réduction choisie</p>
+          </div>
+
+          <div class="kpi">
+            <p class="kpi-title">Gain potentiel / mois</p>
+            <p class="kpi-value" id="px_gain_month">—</p>
+            <p class="kpi-sub">heures &amp; € récupérables</p>
+          </div>
+
+          <div class="kpi">
+            <p class="kpi-title">ROI (si budget renseigné)</p>
+            <p class="kpi-value" id="px_roi">—</p>
+            <p class="kpi-sub" id="px_roi_sub">—</p>
+          </div>
+        </div>
+
+        <div class="roi-note" style="margin-top:1rem;">
+          <strong>Astuce :</strong> si plusieurs tâches existent (reporting + facturation + imports…), faites le calcul
+          pour la plus coûteuse, puis additionnez les estimations.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI / BENEFITS -->
+  <section id="benefices">
+    <h2>Pourquoi les fichiers Excel “se cassent” (et comment on corrige)</h2>
+    <p class="section-intro">
+      Dans 80% des cas, le problème n’est pas “Excel”. C’est le manque de structure : feuilles sans logique, formules copiées au hasard,
+      absence de contrôles, dépendance à une seule personne.
+    </p>
+
+    <div class="kpi-grid">
+      <div class="kpi"><strong>Structure</strong>Modèle clair, données séparées, règles explicites, documentation minimale.</div>
+      <div class="kpi"><strong>Fiabilité</strong>Contrôles, validations, protections, gestion des erreurs et des cas limites.</div>
+      <div class="kpi"><strong>Performance</strong>Formules optimisées, calcul maîtrisé, évite le “fichier qui rame”.</div>
+      <div class="kpi"><strong>Autonomie</strong>Formation ciblée : utilisation + compréhension + capacité d’évolution.</div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  
+  <!-- METHOD -->
+  <section id="methode">
+    <h2>Notre méthode (simple et efficace)</h2>
+    <p class="section-intro">
+      On part de vos usages réels. Pas d’outil “générique” livré en espérant qu’il colle au terrain.
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="tag green">1. Diagnostic</span>
+        <h3>Comprendre l’usage</h3>
+        <p>
+          Qui utilise le fichier ? À quelle fréquence ? Quels risques ? Quelles erreurs reviennent ?
+          On identifie le “vrai” besoin (pas seulement la demande initiale).
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag yellow">2. Conception / refonte</span>
+        <h3>Construire un outil durable</h3>
+        <p>
+          Mise au propre, automatisations, contrôles, tableaux de bord, sécurisation.
+          Le fichier est conçu pour être repris et maintenu.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag orange">3. Formation</span>
+        <h3>Former sur votre outil</h3>
+        <p>
+          On forme les utilisateurs sur le fichier livré : manipulation, logique, bonnes pratiques.
+          Objectif : autonomie et capacité à le faire évoluer sans le casser.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMOS VIDEOS -->
+  <section id="demos">
+    <h2>Démonstrations en situation : Avant / Après</h2>
+    <p class="section-intro">
+      Trois cas très fréquents en entreprise : <strong>reporting bricolé</strong>, <strong>données peu fiables</strong> et <strong>dépendance à une seule personne</strong>.
+      Voici le contraste entre un fichier “qui tient par habitude” et un outil structuré, fiable et reprenable.
+    </p>
+
+    <!-- Bloc 1 : Avant / Après (2 vidéos) -->
+    <div class="demo-block">
+      <div class="demo-grid-2">
+        <div class="demo-card">
+          <div class="demo-head">
+            <span class="demo-pill demo-pill-before">Avant</span>
+          </div>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/FXv4Tkisie0"
+              title="Avant - reporting bricolé"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <ul class="demo-bullets">
+            <li>Consolidation et corrections manuelles</li>
+            <li>Risque d’erreurs + perte de temps</li>
+            <li>Fichier fragile et difficile à reprendre</li>
+          </ul>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-head">
+            <span class="demo-pill demo-pill-after">Après</span>
+          </div>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/HvbsEQZ1cUI"
+              title="Après - fichier optimisé"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <ul class="demo-bullets">
+            <li>Imports centralisés + actualisation</li>
+            <li>Indicateurs fiables, reproductibles</li>
+            <li>Base prête pour former l’équipe sur l’outil livré</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc 2 : Fiabilisation des données -->
+    <div class="demo-block">
+      <div class="demo-title-row">
+        <h3>Fiabilisation des données : contrôles &amp; sécurisation</h3>
+        <span class="demo-mini">Exemple : montants incohérents, fournisseur inconnu, date hors période</span>
+      </div>
+      <div class="demo-grid-1">
+        <div class="demo-card">
+          <div class="demo-head">
+            <span class="demo-pill demo-pill-focus">Fiabilisation</span>
+          </div>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/iTs7EB00AQ8"
+              title="Fiabilisation des données - contrôles automatiques"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <ul class="demo-bullets">
+            <li>Colonne contrôle + messages d’erreur</li>
+            <li>Mise en forme conditionnelle (alertes visibles)</li>
+            <li>Entrées sécurisées : on évite les erreurs silencieuses</li>
+          </ul>
+          <div class="demo-quote">“On sécurise vos données.”</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloc 3 : Autonomie (dépendance à une personne) -->
+    <div class="demo-block">
+      <div class="demo-title-row">
+        <h3>Autonomie : votre outil ne dépend plus d’une seule personne</h3>
+        <span class="demo-mini">Paramètres centralisés, listes déroulantes, bouton d’actualisation, dashboard lisible</span>
+      </div>
+      <div class="demo-grid-1">
+        <div class="demo-card">
+          <div class="demo-head">
+            <span class="demo-pill demo-pill-focus">Autonomie</span>
+          </div>
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/drHflQ98Qrc"
+              title="Autonomie - fin de la dépendance à une personne"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <ul class="demo-bullets">
+            <li>Onglet paramètres : réglages visibles et maîtrisés</li>
+            <li>Listes déroulantes : moins d’erreurs, plus de standard</li>
+            <li>Actualiser : l’utilisateur “utilise”, il ne “répare” pas</li>
+          </ul>
+          <div class="demo-quote">“Votre outil ne dépend plus d’une seule personne.”</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES / OFFERS -->
+  <section id="offres">
+    <h2>Ce que nous livrons</h2>
+    <p class="section-intro">
+      Selon votre besoin, l’intervention peut aller d’une optimisation ciblée à une création complète.
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="tag green">Optimisation</span>
+        <h3>Refonte &amp; fiabilisation</h3>
+        <p>
+          Nettoyage structurel, simplification, correction d’erreurs, optimisation des formules,
+          sécurisation des entrées, contrôles de cohérence.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag yellow">Création sur mesure</span>
+        <h3>Outil métier complet</h3>
+        <p>
+          Modèle structuré (données / calcul / reporting), règles automatiques, vues par profil,
+          tableaux de bord, exports, documentation simple.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag orange">Formation associée</span>
+        <h3>Autonomie de vos équipes</h3>
+        <p>
+          Formation sur le fichier livré + bonnes pratiques Excel.
+          Possibilité de compléter par un parcours Excel aligné TOSA (niveaux 1 à 5).
+        </p>
+      </div>
+    </div>
+
+    <div class="custom-build-home" style="margin-top:1.4rem;">
+      <span class="service-tag">Entrer en contact</span>
+      <h3>On regarde votre fichier et on vous propose une approche</h3>
+      <p>
+        Envoyez une description de votre besoin (ou un exemple anonymisé). Nous vous proposons rapidement une option :
+        optimisation, création, ou intervention + formation.
+      </p>
+      <a href="index.html#contact" class="btn btn-primary">Demander un diagnostic</a>
+      <a href="tarifs.html" class="btn btn-tarif" style="margin-left:0.4rem;">Voir tarifs &amp; packs</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <h2>Questions fréquentes</h2>
+    <p class="section-intro">Les points qui reviennent le plus quand on intervient en entreprise.</p>
+
+    <details>
+      <summary>Est-ce qu’on peut travailler sur des fichiers confidentiels ?</summary>
+      <p>
+        Oui. Vous pouvez anonymiser ou fournir un extrait. L’objectif est de comprendre la structure et l’usage,
+        pas de récupérer vos données sensibles.
+      </p>
+    </details>
+
+    <details>
+      <summary>Pourquoi ajouter une formation si vous livrez déjà le fichier ?</summary>
+      <p>
+        Parce que sans montée en compétence, le fichier “dérive” : modifications non maîtrisées, nouveaux onglets,
+        règles contournées… La formation permet de sécuriser l’usage et de rendre l’outil durable.
+      </p>
+    </details>
+
+    <details>
+      <summary>Est-ce que c’est compatible avec votre offre de formation Excel (TOSA) ?</summary>
+      <p>
+        Oui. La formation “sur vos fichiers” est la plus utile pour l’opérationnel, et le parcours TOSA sert à
+        consolider les bases et faire monter en niveau durablement.
+      </p>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <div style="text-align:center;">
+    © 2026 – ProcessXcel – Formations Excel<br>
+    <div style="margin-top:8px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; font-size:0.85rem;">
+      <a href="index.html" style="color:#2e7d32; text-decoration:underline;">Accueil</a>
+      <a href="tarifs.html" style="color:#2e7d32; text-decoration:underline;">Tarifs</a>
+      <a href="informations-formation.html" style="color:#2e7d32; text-decoration:underline;">Informations formation</a>
+      <a href="modalites.html" style="color:#2e7d32; text-decoration:underline;">Modalités &amp; accessibilité</a>
+      <a href="cgv.html" style="color:#2e7d32; text-decoration:underline;">CGV</a>
+      <a href="mentions-legales.html" style="color:#2e7d32; text-decoration:underline;">Mentions légales</a>
+      <a href="politique-confidentialite.html" style="color:#2e7d32; text-decoration:underline;">Politique de confidentialité</a>
+      <a href="cgu.html" style="color:#2e7d32; text-decoration:underline;">Conditions d’utilisation</a>
+      <a href="cookies.html" style="color:#2e7d32; text-decoration:underline;">Politique cookies</a>
+    </div>
+    <div style="margin-top:10px; font-size:0.8rem; color:#555;">
+      Dernière mise à jour : <strong>22/01/2026</strong>
+    </div>
+  </div>
+</footer>
+
+<script>
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("nav-open");
+    });
+
+    links.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        links.classList.remove("nav-open");
+      }
+    });
+  </script>
+
+
+<script>
+(function(){
+  const nfEur = new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR', maximumFractionDigits:0 });
+  const nfNum = new Intl.NumberFormat('fr-FR', { maximumFractionDigits:1 });
+
+  const el = (id) => document.getElementById(id);
+
+  const inputs = {
+    emp: el('px_emp'),
+    min: el('px_min'),
+    days: el('px_days'),
+    cost: el('px_cost'),
+    red: el('px_red'),
+    fee: el('px_fee'),
+    reset: el('px_reset')
+  };
+
+  const outs = {
+    daysOut: el('px_days_out'),
+    redOut: el('px_red_out'),
+    hoursMonth: el('px_hours_month'),
+    costMonth: el('px_cost_month'),
+    costYear: el('px_cost_year'),
+    gainMonth: el('px_gain_month'),
+    gainYear: el('px_gain_year'),
+    roi: el('px_roi'),
+    roiSub: el('px_roi_sub')
+  };
+
+  const clamp0 = (v) => (Number.isFinite(v) && v > 0) ? v : 0;
+
+  function compute(){
+    const emp = clamp0(parseFloat(inputs.emp.value));
+    const minutesPerDay = clamp0(parseFloat(inputs.min.value));
+    const days = clamp0(parseFloat(inputs.days.value));
+    const costH = clamp0(parseFloat(inputs.cost.value));
+    const redPct = clamp0(parseFloat(inputs.red.value)); // 0..100
+    const fee = clamp0(parseFloat(inputs.fee.value));
+
+    outs.daysOut.textContent = String(Math.round(days));
+    outs.redOut.textContent = String(Math.round(redPct));
+
+    const hoursMonth = emp * (minutesPerDay/60) * days;
+    const costMonth = hoursMonth * costH;
+    const costYear = costMonth * 12;
+
+    const gainMonth = costMonth * (redPct/100);
+    const gainYear = gainMonth * 12;
+
+    outs.hoursMonth.textContent = nfNum.format(hoursMonth);
+    outs.costMonth.textContent = nfEur.format(costMonth);
+    outs.costYear.textContent = nfEur.format(costYear);
+    outs.gainMonth.textContent = nfEur.format(gainMonth);
+    outs.gainYear.textContent = nfEur.format(gainYear);
+
+    if(fee > 0){
+      const paybackMonths = gainMonth > 0 ? (fee / gainMonth) : Infinity;
+      const roiYear = (gainYear - fee) / fee; // ratio
+      const roiPct = isFinite(roiYear) ? (roiYear * 100) : Infinity;
+
+      if(isFinite(roiPct)){
+        outs.roi.textContent = nfNum.format(roiPct) + " %";
+      } else {
+        outs.roi.textContent = "—";
+      }
+
+      if(isFinite(paybackMonths)){
+        outs.roiSub.textContent = "Amorti en ~ " + nfNum.format(paybackMonths) + " mois (estimation)";
+      } else {
+        outs.roiSub.textContent = "Amortissement non calculable (gain = 0)";
+      }
+    }else{
+      outs.roi.textContent = "—";
+      outs.roiSub.textContent = "Renseignez un budget pour estimer l’amortissement";
+    }
+  }
+
+  function bind(){
+    Object.values(inputs).forEach((node) => {
+      if(!node || node === inputs.reset) return;
+      node.addEventListener('input', compute);
+      node.addEventListener('change', compute);
+    });
+
+    if(inputs.reset){
+      inputs.reset.addEventListener('click', () => {
+        inputs.emp.value = 5;
+        inputs.min.value = 30;
+        inputs.days.value = 21;
+        inputs.cost.value = 45;
+        inputs.red.value = 40;
+        inputs.fee.value = "";
+        compute();
+      });
+    }
+  }
+
+  // init
+  bind();
+  compute();
+})();
+</script>
+</body>
+</html>
