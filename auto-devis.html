@@ -293,6 +293,52 @@
       background:#fff;
     }
 
+.file-upload-wrap {
+  margin: 0.2rem 0 0.8rem;
+}
+
+.file-dropzone {
+  border: 2px dashed #cfd8dc;
+  border-radius: 14px;
+  padding: 1rem;
+  background: #fafdfb;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.file-dropzone:hover,
+.file-dropzone.is-dragover {
+  border-color: #2e7d32;
+  background: #f2fbf4;
+}
+
+.file-dropzone strong {
+  color: #1b5e20;
+}
+
+.file-dropzone small {
+  display: block;
+  margin-top: 0.35rem;
+  color: #666;
+  font-size: 0.82rem;
+}
+
+.file-hidden-input {
+  display: none;
+}
+
+.file-meta {
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.file-meta.error {
+  color: #b71c1c;
+}
+
+    
   </style>
 </head>
 
@@ -467,7 +513,29 @@
             <label for="lead_phone">Téléphone (optionnel)</label>
             <input id="lead_phone" name="telephone" type="tel">
           </div>
+<div class="field file-upload-wrap">
+  <label for="devis_piece_jointe">Pièce jointe (optionnel)</label>
 
+  <div class="file-dropzone" id="devisFileDropzone" tabindex="0" role="button" aria-label="Ajouter une pièce jointe">
+    <strong>Glissez-déposez un fichier ici</strong>
+    <div>ou cliquez pour sélectionner un fichier</div>
+    <small>Formats autorisés : Excel, CSV, PDF, Word, PNG, JPG · 5 Mo max</small>
+  </div>
+
+  <input
+    class="file-hidden-input"
+    type="file"
+    id="devis_piece_jointe"
+    name="piece_jointe"
+    accept=".xlsx,.xls,.csv,.pdf,.doc,.docx,.png,.jpg,.jpeg"
+  />
+
+  <div id="devisFileMeta" class="file-meta">Aucun fichier sélectionné</div>
+
+  <p class="small muted" style="margin:6px 0 0;">
+    Vous pouvez joindre un fichier Excel, un export, un PDF ou une capture pour illustrer votre demande.
+  </p>
+</div>
           <!-- Honeypot anti-spam -->
           <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
 
@@ -739,7 +807,11 @@
     f_secu: el('f_secu'),
     reset: el('btn_reset'),
     form: el('autoDevisForm'),
-    status: el('autoDevisStatus')
+    status: el('autoDevisStatus'),
+
+    fileInput: el('devis_piece_jointe'),
+    fileDropzone: el('devisFileDropzone'),
+    fileMeta: el('devisFileMeta')
   };
 
   const outs = {
@@ -750,7 +822,50 @@
     summary: el('r_summary')
   };
 
-  const setStatus = (msg) => { if (inputs.status) inputs.status.textContent = msg; };
+  const maxFileSize = 5 * 1024 * 1024;
+
+  const setStatus = (msg) => {
+    if (inputs.status) inputs.status.textContent = msg;
+  };
+
+  const formatBytes = (bytes) => {
+    if (!bytes && bytes !== 0) return "";
+    if (bytes < 1024) return bytes + " octets";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " Ko";
+    return (bytes / 1024 / 1024).toFixed(2) + " Mo";
+  };
+
+  const setFileMeta = (msg, isError = false) => {
+    if (!inputs.fileMeta) return;
+    inputs.fileMeta.textContent = msg;
+    inputs.fileMeta.classList.toggle("error", !!isError);
+  };
+
+  const validateFile = (file) => {
+    if (!file) return true;
+
+    const allowed = [
+      ".xlsx", ".xls", ".csv", ".pdf", ".doc", ".docx", ".png", ".jpg", ".jpeg"
+    ];
+
+    const lower = (file.name || "").toLowerCase();
+    const okExt = allowed.some((ext) => lower.endsWith(ext));
+
+    if (!okExt) {
+      setFileMeta("Format non autorisé. Utilise Excel, CSV, PDF, Word, PNG ou JPG.", true);
+      if (inputs.fileInput) inputs.fileInput.value = "";
+      return false;
+    }
+
+    if (file.size > maxFileSize) {
+      setFileMeta("Fichier trop volumineux. Taille maximale : 5 Mo.", true);
+      if (inputs.fileInput) inputs.fileInput.value = "";
+      return false;
+    }
+
+    setFileMeta("Fichier sélectionné : " + file.name + " (" + formatBytes(file.size) + ")");
+    return true;
+  };
 
   function compute(){
     const u = parseInt(inputs.users.value, 10);
@@ -761,10 +876,8 @@
     const r = parseInt(inputs.reduc.value, 10);
     inputs.reducVal.textContent = r;
 
-    // Scoring simple, ajustable
     let score = u + s + z + g + urg;
 
-    // Features
     if (inputs.f_formules.checked) score += 1;
     if (inputs.f_tcd.checked) score += 1;
     if (inputs.f_vba.checked) score += 3;
@@ -772,7 +885,6 @@
     if (inputs.f_multi.checked) score += 2;
     if (inputs.f_secu.checked) score += 1;
 
-    // Buckets estimation
     let level, bMin, bMax, delay;
     if (score <= 8){
       level = "Faible";
@@ -792,7 +904,6 @@
       delay = "5–10 semaines";
     }
 
-    // Résumé lisible
     const features = [
       inputs.f_formules.checked ? "formules avancées" : null,
       inputs.f_tcd.checked ? "TCD" : null,
@@ -810,14 +921,12 @@
     outs.delay.textContent = delay;
     outs.summary.textContent = summary;
 
-    // Stocke pour l'envoi
     window.__PX_AUTODEVIS__ = {
       score, level, bMin, bMax, delay, summary,
       notes: (inputs.notes.value || "").trim()
     };
   }
 
-  // listeners
   const bind = (node) => {
     if (!node) return;
     node.addEventListener('change', compute);
@@ -831,7 +940,54 @@
 
   compute();
 
-  // Reset
+  if (inputs.fileDropzone && inputs.fileInput) {
+    inputs.fileDropzone.addEventListener("click", () => {
+      inputs.fileInput.click();
+    });
+
+    inputs.fileDropzone.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        inputs.fileInput.click();
+      }
+    });
+
+    inputs.fileInput.addEventListener("change", () => {
+      const file = inputs.fileInput.files && inputs.fileInput.files[0];
+      if (!file) {
+        setFileMeta("Aucun fichier sélectionné");
+        return;
+      }
+      validateFile(file);
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      inputs.fileDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputs.fileDropzone.classList.add("is-dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      inputs.fileDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputs.fileDropzone.classList.remove("is-dragover");
+      });
+    });
+
+    inputs.fileDropzone.addEventListener("drop", (e) => {
+      const files = e.dataTransfer && e.dataTransfer.files;
+      if (!files || !files.length) return;
+
+      const file = files[0];
+      if (!validateFile(file)) return;
+
+      inputs.fileInput.files = files;
+    });
+  }
+
   inputs.reset?.addEventListener("click", () => {
     inputs.users.value = "1";
     inputs.sheets.value = "1";
@@ -851,12 +1007,15 @@
     document.getElementById("lead_company").value = "";
     document.getElementById("lead_email").value = "";
     document.getElementById("lead_phone").value = "";
+
+    if (inputs.fileInput) inputs.fileInput.value = "";
+    setFileMeta("Aucun fichier sélectionné");
+
     setStatus("");
     compute();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Envoi via la même API que votre page d'accueil : /api/contact
   inputs.form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     setStatus("Envoi en cours…");
@@ -867,12 +1026,17 @@
     const entreprise = (fd.get("entreprise") || "").toString().trim();
     const email = (fd.get("email") || "").toString().trim();
     const telephone = (fd.get("telephone") || "").toString().trim();
-    const website = (fd.get("website") || "").toString().trim(); // honeypot
+    const website = (fd.get("website") || "").toString().trim();
+    const file = inputs.fileInput && inputs.fileInput.files ? inputs.fileInput.files[0] : null;
+
+    if (file && !validateFile(file)) {
+      setStatus("Merci de corriger la pièce jointe avant l’envoi.");
+      return;
+    }
 
     const calc = window.__PX_AUTODEVIS__ || {};
     const notes = (calc.notes || "").trim();
 
-    // Payload compatible /api/contact (même logique que sur index.html)
     const payload = new FormData();
     payload.append("name", nom);
     payload.append("email", email);
@@ -888,21 +1052,29 @@
       "",
       "Résumé :",
       calc.summary || "—",
-      notes ? `
-Précisions :
-${notes}` : null,
+      notes ? `\nPrécisions :\n${notes}` : null,
     ].filter(Boolean).join("\n");
 
     payload.append("message", msg);
     payload.append("website", website);
 
+    if (file) {
+      payload.append("piece_jointe", file);
+    }
+
     try{
       const res = await fetch("/api/contact", { method:"POST", body: payload });
+
+      let json = {};
+      try {
+        json = await res.json();
+      } catch (_) {}
+
       if (res.ok){
         setStatus("Estimation envoyée ✅");
         window.location.href = "/merci.html";
       } else {
-        setStatus("Erreur d'envoi ❌ (réessayez dans quelques instants)");
+        setStatus(json.error || "Erreur d'envoi ❌ (réessayez dans quelques instants)");
       }
     } catch(err){
       setStatus("Erreur réseau ❌ (vérifiez votre connexion)");
