@@ -550,7 +550,53 @@
       padding-left: 1rem;
       color: var(--text-muted);
     }
+  .file-upload-wrap {
+    margin: 0.2rem 0 0.8rem;
+  }
 
+  .file-dropzone {
+    border: 2px dashed #cfd8dc;
+    border-radius: 14px;
+    padding: 1rem;
+    background: #fafdfb;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  .file-dropzone:hover,
+  .file-dropzone.is-dragover {
+    border-color: #2e7d32;
+    background: #f2fbf4;
+  }
+
+  .file-dropzone strong {
+    color: #1b5e20;
+  }
+
+  .file-dropzone small {
+    display: block;
+    margin-top: 0.35rem;
+    color: #666;
+    font-size: 0.82rem;
+  }
+
+  .file-hidden-input {
+    display: none;
+  }
+
+  .file-meta {
+    margin-top: 0.55rem;
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  .file-meta.error {
+    color: #b71c1c;
+  }
+
+
+    
     .contact-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -1738,88 +1784,118 @@ header .nav-links{
       </p>
       <div class="contact-grid">
         <form id="contactForm" novalidate>
-          <div>
-            <label for="nom">Nom / Organisation</label>
-            <input
-              type="text"
-              id="nom"
-              name="nom"
-              placeholder="Votre nom, entreprise ou école"
-              required
-            />
-          </div>
-          <div>
-            <label for="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="vous@example.com"
-              required
-            />
-          </div>
-          <div>
-            <label for="type">Type de demande</label>
-            <select id="type" name="type">
-              <option>Diagnostic / audit de fichier Excel</option>
-              <option>Optimisation d’un fichier Excel existant</option>
-              <option>Création d’un fichier Excel sur mesure</option>
-              <option>Formation sur vos fichiers Excel (cas réels)</option>
-              <option>Formation Excel (parcours TOSA – niveaux 1 à 5)</option>
-              <option>Formation pour une école / centre</option>
-              <option>Demande individuelle</option>
-              <option>Autre (à préciser)</option>
-            </select>
-          </div>
+  <div>
+    <label for="nom">Nom / Organisation</label>
+    <input
+      type="text"
+      id="nom"
+      name="nom"
+      placeholder="Votre nom, entreprise ou école"
+      required
+    />
+  </div>
 
-          <div>
-            <label for="handicap">Besoins d’adaptation / accessibilité</label>
-            <select id="handicap" name="handicap">
-              <option value="Non">Non</option>
-              <option value="Oui">Oui (à préciser)</option>
-              <option value="Je préfère en parler">Je préfère en parler</option>
-            </select>
-            <p style="margin:6px 0 0; font-size:0.8rem; color:#555;">
-              Vous pouvez indiquer ici des <strong>besoins d’adaptation</strong> (rythme, supports, accessibilité).  
-              <strong>Merci de ne pas fournir de détail médical.</strong>
-            </p>
-          </div>
-          <div id="handicapDetailsWrap" style="display:none;">
-            <label for="handicap_details">Précisions sur l’adaptation souhaitée (optionnel)</label>
-            <textarea
-              id="handicap_details"
-              name="handicap_details"
-              placeholder="Ex : support avec police plus grande, pauses plus fréquentes, sous-titres en distanciel…"
-            ></textarea>
-          </div>
-          <div>
-            <label for="message">Votre besoin</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Ex : Mise à niveau niveau 1–3 pour une équipe de 12 personnes, préparation TOSA, distanciel sur 3 jours…"
-              required
-            ></textarea>
-          </div>
+  <div>
+    <label for="email">E-mail</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="vous@example.com"
+      required
+    />
+  </div>
 
-          <!-- Honeypot anti-spam (doit rester caché) -->
-          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+  <div>
+    <label for="type">Type de demande</label>
+    <select id="type" name="type">
+      <option>Diagnostic / audit de fichier Excel</option>
+      <option>Optimisation d’un fichier Excel existant</option>
+      <option>Création d’un fichier Excel sur mesure</option>
+      <option>Formation sur vos fichiers Excel (cas réels)</option>
+      <option>Formation Excel (parcours TOSA – niveaux 1 à 5)</option>
+      <option>Formation pour une école / centre</option>
+      <option>Demande individuelle</option>
+      <option>Autre (à préciser)</option>
+    </select>
+  </div>
 
-          <p style="font-size:0.8rem; color:#555; margin-bottom:0.8rem;">
-            En envoyant ce message, j’accepte que mes données soient utilisées par ProcessXcel
-            afin de répondre à ma demande. Elles ne seront jamais transférées à des tiers.
-            Pour en savoir plus, consultez notre
-            <a href="politique-confidentialite.html" style="color:#2e7d32; text-decoration:underline;">
-              Politique de confidentialité
-            </a>.
-          </p>
+  <div>
+    <label for="handicap">Besoins d’adaptation / accessibilité</label>
+    <select id="handicap" name="handicap">
+      <option value="Non">Non</option>
+      <option value="Oui">Oui (à préciser)</option>
+      <option value="Je préfère en parler">Je préfère en parler</option>
+    </select>
+    <p style="margin:6px 0 0; font-size:0.8rem; color:#555;">
+      Vous pouvez indiquer ici des <strong>besoins d’adaptation</strong> (rythme, supports, accessibilité).
+      <strong>Merci de ne pas fournir de détail médical.</strong>
+    </p>
+  </div>
 
-          <div>
-            <button type="submit" class="btn btn-primary">Envoyer la demande</button>
-          </div>
+  <div id="handicapDetailsWrap" style="display:none;">
+    <label for="handicap_details">Précisions sur l’adaptation souhaitée (optionnel)</label>
+    <textarea
+      id="handicap_details"
+      name="handicap_details"
+      placeholder="Ex : support avec police plus grande, pauses plus fréquentes, sous-titres en distanciel…"
+    ></textarea>
+  </div>
 
-          <p id="contactStatus" style="font-size:0.85rem; color:#555; margin:0.4rem 0 0;"></p>
-        </form>
+  <div>
+    <label for="message">Votre besoin</label>
+    <textarea
+      id="message"
+      name="message"
+      placeholder="Ex : Mise à niveau niveau 1–3 pour une équipe de 12 personnes, préparation TOSA, distanciel sur 3 jours…"
+      required
+    ></textarea>
+  </div>
+
+  <div class="file-upload-wrap">
+    <label for="piece_jointe">Pièce jointe (optionnel)</label>
+
+    <div class="file-dropzone" id="fileDropzone" tabindex="0" role="button" aria-label="Ajouter une pièce jointe">
+      <strong>Glissez-déposez un fichier ici</strong>
+      <div>ou cliquez pour sélectionner un fichier</div>
+      <small>Formats autorisés : Excel, CSV, PDF, Word, PNG, JPG · 5 Mo max</small>
+    </div>
+
+    <input
+      class="file-hidden-input"
+      type="file"
+      id="piece_jointe"
+      name="piece_jointe"
+      accept=".xlsx,.xls,.csv,.pdf,.doc,.docx,.png,.jpg,.jpeg"
+    />
+
+    <div id="fileMeta" class="file-meta">
+      Aucun fichier sélectionné
+    </div>
+
+    <p style="margin:6px 0 0; font-size:0.8rem; color:#555;">
+      Vous pouvez joindre un fichier Excel, un export, un PDF ou une capture pour illustrer votre demande.
+    </p>
+  </div>
+
+  <!-- Honeypot anti-spam -->
+  <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <p style="font-size:0.8rem; color:#555; margin-bottom:0.8rem;">
+    En envoyant ce message, j’accepte que mes données soient utilisées par ProcessXcel
+    afin de répondre à ma demande. Elles ne seront jamais transférées à des tiers.
+    Pour en savoir plus, consultez notre
+    <a href="politique-confidentialite.html" style="color:#2e7d32; text-decoration:underline;">
+      Politique de confidentialité
+    </a>.
+  </p>
+
+  <div>
+    <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+  </div>
+
+  <p id="contactStatus" style="font-size:0.85rem; color:#555; margin:0.4rem 0 0;"></p>
+</form>
 
         <div class="contact-info">
           <p><strong>
