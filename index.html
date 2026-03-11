@@ -1958,57 +1958,167 @@ Vous préférez un échange direct ?</strong></p>
       }
     });
   </script>
-  <script>
-    (function () {
-      const form = document.getElementById("contactForm");
-      if (!form) return;
+<script>
+  (function () {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
 
-      const statusEl = document.getElementById("contactStatus");
-      const setStatus = (msg) => { if (statusEl) statusEl.textContent = msg; };
+    const statusEl = document.getElementById("contactStatus");
+    const fileInput = document.getElementById("piece_jointe");
+    const fileDropzone = document.getElementById("fileDropzone");
+    const fileMeta = document.getElementById("fileMeta");
+    const maxFileSize = 5 * 1024 * 1024;
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        setStatus("Envoi en cours…");
+    const setStatus = (msg) => {
+      if (statusEl) statusEl.textContent = msg;
+    };
 
-        const fd = new FormData(form);
+    const formatBytes = (bytes) => {
+      if (!bytes && bytes !== 0) return "";
+      if (bytes < 1024) return bytes + " octets";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " Ko";
+      return (bytes / 1024 / 1024).toFixed(2) + " Mo";
+    };
 
-        // Payload attendu par l'API /api/contact
-        const payload = new FormData();
-        const nom = (fd.get("nom") || "").toString();
-        const email = (fd.get("email") || "").toString();
-        const type = (fd.get("type") || "").toString();
-        const message = (fd.get("message") || "").toString();
-        const website = (fd.get("website") || "").toString();
+    const setFileMeta = (msg, isError = false) => {
+      if (!fileMeta) return;
+      fileMeta.textContent = msg;
+      fileMeta.classList.toggle("error", !!isError);
+    };
 
-        payload.append("name", nom);
-        payload.append("email", email);
-        const handicap = (fd.get("handicap") || "").toString();
-        const handicapDetails = (fd.get("handicap_details") || "").toString();
+    const validateFile = (file) => {
+      if (!file) return true;
 
-        payload.append("message", `Type : ${type}
-Besoins d’adaptation / accessibilité : ${handicap}${handicapDetails ? `\nPrécisions : ${handicapDetails}` : ""}
+      const allowed = [
+        ".xlsx", ".xls", ".csv", ".pdf", ".doc", ".docx", ".png", ".jpg", ".jpeg"
+      ];
 
-${message}`);
-        payload.append("website", website);
+      const lower = (file.name || "").toLowerCase();
+      const okExt = allowed.some((ext) => lower.endsWith(ext));
 
-        try {
-          const res = await fetch("/api/contact", {
-            method: "POST",
-            body: payload,
-          });
+      if (!okExt) {
+        setFileMeta("Format non autorisé. Utilise Excel, CSV, PDF, Word, PNG ou JPG.", true);
+        if (fileInput) fileInput.value = "";
+        return false;
+      }
 
-          if (res.ok) {
-            setStatus("Message envoyé ✅");
-            window.location.href = "/merci.html";
-          } else {
-            setStatus("Erreur d'envoi ❌ (réessayez dans quelques instants)");
-          }
-        } catch (err) {
-          setStatus("Erreur réseau ❌ (vérifiez votre connexion)");
+      if (file.size > maxFileSize) {
+        setFileMeta("Fichier trop volumineux. Taille maximale : 5 Mo.", true);
+        if (fileInput) fileInput.value = "";
+        return false;
+      }
+
+      setFileMeta("Fichier sélectionné : " + file.name + " (" + formatBytes(file.size) + ")");
+      return true;
+    };
+
+    if (fileDropzone && fileInput) {
+      fileDropzone.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileDropzone.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          fileInput.click();
         }
       });
-    })();
-  </script>
+
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) {
+          setFileMeta("Aucun fichier sélectionné");
+          return;
+        }
+        validateFile(file);
+      });
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        fileDropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          fileDropzone.classList.add("is-dragover");
+        });
+      });
+
+      ["dragleave", "drop"].forEach((eventName) => {
+        fileDropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          fileDropzone.classList.remove("is-dragover");
+        });
+      });
+
+      fileDropzone.addEventListener("drop", (e) => {
+        const files = e.dataTransfer && e.dataTransfer.files;
+        if (!files || !files.length) return;
+
+        const file = files[0];
+        if (!validateFile(file)) return;
+
+        fileInput.files = files;
+      });
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setStatus("Envoi en cours…");
+
+      const fd = new FormData(form);
+      const payload = new FormData();
+
+      const nom = (fd.get("nom") || "").toString();
+      const email = (fd.get("email") || "").toString();
+      const type = (fd.get("type") || "").toString();
+      const message = (fd.get("message") || "").toString();
+      const website = (fd.get("website") || "").toString();
+      const handicap = (fd.get("handicap") || "").toString();
+      const handicapDetails = (fd.get("handicap_details") || "").toString();
+      const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+
+      if (file && !validateFile(file)) {
+        setStatus("Merci de corriger la pièce jointe avant l’envoi.");
+        return;
+      }
+
+      payload.append("name", nom);
+      payload.append("email", email);
+      payload.append(
+        "message",
+        `Type : ${type}
+Besoins d’adaptation / accessibilité : ${handicap}${handicapDetails ? `\nPrécisions : ${handicapDetails}` : ""}
+
+${message}`
+      );
+      payload.append("website", website);
+
+      if (file) {
+        payload.append("piece_jointe", file);
+      }
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          body: payload,
+        });
+
+        let json = {};
+        try {
+          json = await res.json();
+        } catch (_) {}
+
+        if (res.ok) {
+          setStatus("Message envoyé ✅");
+          window.location.href = "/merci.html";
+        } else {
+          setStatus(json.error || "Erreur d'envoi ❌ (réessayez dans quelques instants)");
+        }
+      } catch (err) {
+        setStatus("Erreur réseau ❌ (vérifiez votre connexion)");
+      }
+    });
+  })();
+</script>
 
 
   <script>
