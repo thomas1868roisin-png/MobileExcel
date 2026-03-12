@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>ProcessXcel – Auto-devis (estimation budget & délai)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Estimez rapidement le budget et le délai d’un projet Excel (fiabilisation, optimisation, automatisation, refonte). Envoyez le récapitulatif à ProcessXcel pour obtenir un chiffrage précis." />
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --accent: #ed7d31;
+      --grey-light: #e7e6e6;
+      --grey-bg: #f5f5f7;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --radius: 10px;
+      --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.06);
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, "Calibri", sans-serif;
+      color: var(--text-main);
+      background: var(--grey-bg);
+      line-height: 1.5;
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    /* HEADER / NAV */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #ffffffee;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #ddd;
+    }
+    .nav{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.75rem;
+      flex-wrap:wrap;
+    }
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+      white-space:nowrap;
+    }
+    .logo-img{ height:60px; width:auto; display:block; }
+    .brand-wrapper{ display:flex; flex-direction:column; }
+    .brand-text-main{
+      font-weight:700; font-size:1.15rem; letter-spacing:0.02em;
+      color: var(--primary-dark);
+    }
+    .brand-text-main span{ color: var(--primary); }
+    .brand-tagline{ font-size:0.8rem; color: var(--text-muted); margin-top:-2px; }
+
+    .nav-links{
+      display:flex;
+      gap:0.75rem;
+      font-size:0.9rem;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .nav-links a{
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.15s ease;
+    }
+    .nav-links a:hover{ background: var(--grey-light); }
+    .nav-links a.is-active{ background: var(--primary); color:#fff; }
+    .nav-links a.is-active:hover{ background: var(--primary-dark); }
+
+    .nav-toggle{
+      display:none;
+      background:none;
+      border:1px solid #ccc;
+      border-radius:8px;
+      padding:0.3rem 0.5rem;
+      cursor:pointer;
+      font-size:0.9rem;
+      gap:0.3rem;
+      align-items:center;
+    }
+    .nav-toggle span{
+      display:inline-block; width:16px; height:2px;
+      background: var(--text-main);
+      position: relative;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after{
+      content:"";
+      position:absolute; left:0;
+      width:16px; height:2px;
+      background: var(--text-main);
+    }
+    .nav-toggle span::before{ top:-5px; }
+    .nav-toggle span::after{ top:5px; }
+
+    @media (max-width: 880px){
+      .nav-toggle{ display:inline-flex; }
+      .nav-links{
+        display:none;
+        width:100%;
+        padding:0.6rem 0.2rem 0.2rem;
+        flex-direction: column;
+      }
+      .nav-links.nav-open{ display:flex; }
+
+      header .nav{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+      }
+
+      header .nav-left{
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .nav-toggle{
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: start;
+      }
+
+      header .nav-cta{
+        grid-column: 1;
+        grid-row: 3;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      header .nav-links{
+        grid-column: 1;
+        grid-row: 4;
+      }
+    }
+
+    /* GLOBAL */
+    main{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.25rem 1rem 2rem;
+    }
+    section{ padding: 1.2rem 0 0.6rem; }
+    h1{ margin:0 0 0.4rem; font-size: 2rem; color: var(--primary-dark); }
+    .section-intro{ margin:0 0 1rem; color: var(--text-muted); font-size:0.95rem; }
+
+    /* BUTTONS */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:0.4rem;
+      padding: 0.55rem 1.2rem;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-size:0.9rem;
+      font-weight:600;
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn-primary{ background: var(--primary); color:#fff; box-shadow: var(--shadow-soft); }
+    .btn-primary:hover{ background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+    .btn-outline{ background:#fff; color: var(--primary-dark); border:1px solid var(--primary-dark); }
+    .btn-outline:hover{ background: rgba(46,125,50,0.06); }
+
+    /* AUTO-DEVIS */
+    .grid-2{
+      display:grid;
+      grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
+      gap: 1rem;
+      align-items:start;
+    }
+    @media (max-width: 950px){ .grid-2{ grid-template-columns:1fr; } }
+
+    .card{
+      background:#fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid #e9e9e9;
+      padding: 1rem 1.1rem;
+    }
+    .card h2{ margin:0 0 0.5rem; font-size:1.2rem; color: var(--primary-dark); }
+    .muted{ color: var(--text-muted); }
+    .divider{ height:1px; background:#eee; margin: 1rem 0; }
+
+    .field{ margin: 0.65rem 0; }
+    .field label{ display:block; font-weight:700; font-size:0.92rem; margin-bottom:6px; }
+    .field input, .field select, .field textarea{
+      width:100%;
+      padding: 0.62rem 0.75rem;
+      border:1px solid #d9d9d9;
+      border-radius: 12px;
+      background:#fff;
+      font-size: 0.95rem;
+    }
+    .field textarea{ min-height: 92px; resize: vertical; }
+    .range{
+      display:flex; gap:0.7rem; align-items:center;
+    }
+    .range input{ flex:1; }
+    .small{ font-size:0.82rem; }
+
+    .checks{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem 0.6rem;
+      margin-top: 0.4rem;
+    }
+    @media (max-width: 520px){ .checks{ grid-template-columns:1fr; } }
+    .check{
+      display:flex; gap:0.55rem; align-items:flex-start;
+      padding: 0.5rem 0.6rem;
+      border:1px solid #eee;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+    .check input{ margin-top: 0.18rem; width:auto; }
+    .check span{ font-size:0.9rem; color: var(--text-main); }
+
+    .kpis{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+    }
+    @media (max-width: 520px){ .kpis{ grid-template-columns:1fr; } }
+    .kpi{
+      border: 1px solid #eee;
+      background:#fafafa;
+      border-radius: 14px;
+      padding: 0.85rem;
+    }
+    .kpi .label{ font-size:0.8rem; color: var(--text-muted); }
+    .kpi .value{ font-size:1.25rem; font-weight:800; margin-top: 0.25rem; }
+    .kpi .sub{ font-size:0.82rem; color: var(--text-muted); margin-top: 0.35rem; line-height:1.35; }
+
+    .tip{
+      margin-top: 0.9rem;
+      padding: 0.8rem;
+      border-radius: 14px;
+      border: 1px solid #d9f0e2;
+      background: #f3fbf6;
+      font-size: 0.9rem;
+    }
+
+    footer{
+      border-top: 1px solid #ddd;
+      background:#fff;
+      padding: 1.4rem 1rem;
+    }
+  
+    /* AUTO-AUDIT */
+    .audit-grid{
+      display:grid;
+      grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr);
+      gap: 1rem;
+      align-items:start;
+      margin-top: 1rem;
+    }
+    @media (max-width: 950px){ .audit-grid{ grid-template-columns:1fr; } }
+
+    .audit-axis{
+      border: 1px solid #eee;
+      background:#fafafa;
+      border-radius: 14px;
+      padding: 0.85rem;
+      margin-top: 0.8rem;
+    }
+    .audit-axis h3{
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
+    .audit-opts{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+      margin-top: 0.45rem;
+    }
+    .audit-opt{
+      display:flex;
+      gap:0.55rem;
+      align-items:flex-start;
+      padding: 0.55rem 0.65rem;
+      border:1px solid #eee;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .audit-opt input{ margin-top: 0.2rem; }
+    .audit-opt strong{ min-width: 26px; display:inline-block; color: var(--primary-dark); }
+    .pill{
+      display:inline-block;
+      font-size:0.78rem;
+      padding:0.18rem 0.55rem;
+      border-radius:999px;
+      background:#e8f5e9;
+      color: var(--primary-dark);
+      border: 1px solid rgba(46,125,50,.25);
+    }
+    .risk{
+      display:inline-block;
+      font-weight:800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background:#fff;
+    }
+
+.file-upload-wrap {
+  margin: 0.2rem 0 0.8rem;
+}
+
+.file-dropzone {
+  border: 2px dashed #cfd8dc;
+  border-radius: 14px;
+  padding: 1rem;
+  background: #fafdfb;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.file-dropzone:hover,
+.file-dropzone.is-dragover {
+  border-color: #2e7d32;
+  background: #f2fbf4;
+}
+
+.file-dropzone strong {
+  color: #1b5e20;
+}
+
+.file-dropzone small {
+  display: block;
+  margin-top: 0.35rem;
+  color: #666;
+  font-size: 0.82rem;
+}
+
+.file-hidden-input {
+  display: none;
+}
+
+.file-meta {
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.file-meta.error {
+  color: #b71c1c;
+}
+
+    
+  
+
+    .btn-autodevis {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-autodevis:hover {
+      background: #d86f2a;
+    }
+
+    .btn-autodevis.is-active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-autodevis.is-active:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-formateurs {
+      background: #f0f0f0;
+      color: #444;
+      border: 1px solid #d5d5d5;
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+      border-radius: 999px;
+    }
+
+    .btn-formateurs:hover {
+      background: #dcdcdc;
+      color: #111;
+    }
+
+    .btn-tarif {
+      background: #fff8f2;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .btn-tarif:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-pilote {
+      background: #eef8ff;
+      color: #1565c0;
+      border: 1px solid #90caf9;
+      box-shadow: var(--shadow-soft);
+      padding-inline: 1rem;
+      font-size: 0.85rem;
+      border-radius: 999px;
+    }
+
+    .btn-pilote:hover {
+      background: #1565c0;
+      color: #fff;
+    }
+
+    .qualiopi-logo {
+      display: block;
+      height: auto;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .qualiopi-logo.header-logo {
+      height: 48px;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    header .nav {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header .nav-left {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    header .nav-cta {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    header .nav-links {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+</style>
+</head>
+
+<body>
+<header>
+    <div class="nav">
+      <!-- Logo + marque -->
+      <div class="nav-left">
+        <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
+        <div class="brand-wrapper">
+          <div class="brand-text-main">Process<span>Xcel</span></div>
+          <div class="brand-tagline">Vos fichiers deviennent des outils. Vos équipes deviennent autonomes.</div>
+        </div>
+      
+      <!-- CTA mis en avant (au-dessus de la navigation) -->
+      <div class="nav-cta">
+        <a href="auto-devis.html" class="btn btn-autodevis is-active">Auto-devis</a>
+        <a href="#envoyer" class="btn btn-primary">Contact</a>
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQ0NDw0NDisZFRkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAH8BLAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EADwQAAIBAgQEAwYEBQMFAAAAAAECAwQRAAUSITFBEyJRYXGBkQYUMqGxwdHwQlJy8SNSYoIVM1Nygv/EABkBAQADAQEAAAAAAAAAAAAAAAABAgMEBf/EACsRAQACAQMCBQQDAQAAAAAAAAABAgMRBBIhMUETIlFh8BMygZGxwdHh/9oADAMBAAIRAxEAPwD7cREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQB//2Q==" alt="Qualiopi processus certifié" class="qualiopi-logo header-logo" />
+      </div>
+</div>
+
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span>
+      </button>
+
+      <nav class="nav-links">
+
+        <!-- Bouton Tarifs distinct, menant vers une page séparée -->
+        <a href="tarifs.html" class="btn btn-tarif">Tarifs &amp; packs</a>
+        <a href="sur-mesure.html" class="btn btn-outline">Optimisation &amp; sur mesure</a>
+        <a href="informations-formation.html" class="btn btn-outline">Informations formation</a>
+        <a href="formateurs.html" class="btn btn-formateurs">Formateurs</a>
+        <a href="pilote.html" class="btn btn-pilote">Pilote &amp; témoignages</a>
+        <a href="modalites.html" class="btn btn-outline">Modalités &amp; accessibilité</a>
+</nav>
+    </div>
+  </header>
+
+<main>
+  <section>
+    <h1>Auto-devis – estimation budget &amp; délai</h1>
+    <p class="section-intro">
+      Répondez en 1 minute : le calcul se met à jour en direct. L’estimation est indicative (elle sert à cadrer).
+      Pour un chiffrage précis, nous validons toujours le besoin sur vos fichiers.
+    </p>
+
+    <div class="grid-2">
+      <!-- Colonne gauche -->
+      <div class="card" id="questionnaire">
+        <h2>1) Questionnaire (besoin & contexte)</h2>
+
+        <div class="field">
+          <label for="q_users">Nombre d’utilisateurs concernés</label>
+          <select id="q_users">
+            <option value="1">1</option>
+            <option value="2">2–5</option>
+            <option value="3">5–15</option>
+            <option value="4">15+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="q_sheets">Nombre de feuilles / onglets</label>
+          <select id="q_sheets">
+            <option value="1">&lt; 5</option>
+            <option value="2">5–15</option>
+            <option value="3">15+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="q_size">Taille approximative du fichier</label>
+          <select id="q_size">
+            <option value="1">&lt; 5 Mo</option>
+            <option value="2">5–20 Mo</option>
+            <option value="3">20–50 Mo</option>
+            <option value="4">&gt; 50 Mo</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Fonctionnalités déjà présentes</label>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="f_formules" /> <span>Formules avancées (RECHERCHEX, SOMME.SI.ENS…)</span></label>
+            <label class="check"><input type="checkbox" id="f_tcd" /> <span>TCD / Pivot / segments</span></label>
+            <label class="check"><input type="checkbox" id="f_vba" /> <span>Macros / VBA</span></label>
+            <label class="check"><input type="checkbox" id="f_pq" /> <span>Power Query / imports</span></label>
+            <label class="check"><input type="checkbox" id="f_multi" /> <span>Consolidation multi-fichiers</span></label>
+            <label class="check"><input type="checkbox" id="f_secu" /> <span>Protections / droits / traçabilité</span></label>
+          </div>
+          <p class="small muted" style="margin:6px 0 0;">Ces éléments influencent la complexité et le temps de reprise.</p>
+        </div>
+
+        <div class="field">
+          <label for="q_goal">Objectif principal</label>
+          <select id="q_goal">
+            <option value="1">Fiabilisation (structure, contrôles, protections)</option>
+            <option value="2">Automatisation partielle (réduction du manuel)</option>
+            <option value="3">Refonte complète (outil durable & reprenable)</option>
+            <option value="2">Tableaux de bord / reporting</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="q_urgency">Urgence</label>
+          <select id="q_urgency">
+            <option value="0">Standard</option>
+            <option value="1">Assez urgent</option>
+            <option value="2">Très urgent</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="q_reduc">Gain de temps visé (estimation)</label>
+          <div class="range">
+            <input id="q_reduc" type="range" min="10" max="60" step="5" value="30">
+            <span><strong id="q_reduc_val">30</strong>%</span>
+          </div>
+          <p class="small muted" style="margin:6px 0 0;">10% = léger • 60% = fort</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label for="q_notes">Précisions (optionnel)</label>
+          <textarea id="q_notes" placeholder="Ex : fichiers partagés, plusieurs versions, erreurs fréquentes, exports ERP…"></textarea>
+        </div>
+
+        <div class="tip">
+          <strong>Note :</strong> cette estimation sert à cadrer. Le devis final dépend de vos contraintes réelles
+          (qualité des données, stabilité du besoin, périmètre, niveau d’autonomie visé).
+        </div>
+      </div>
+
+      <!-- Colonne droite -->
+      <div class="card" id="envoyer">
+        <h2>2) Estimation (en direct) &amp; envoi</h2>
+        <p class="muted" style="margin:0 0 0.6rem;">Vous pouvez envoyer le récapitulatif à ProcessXcel pour obtenir un chiffrage précis.</p>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="label">Complexité</div>
+            <div class="value" id="r_level">—</div>
+            <div class="sub" id="r_score">Score : —</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Budget estimatif</div>
+            <div class="value" id="r_budget">—</div>
+            <div class="sub">fourchette indicative</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Délai estimatif</div>
+            <div class="value" id="r_delay">—</div>
+            <div class="sub">selon disponibilité & cadrage</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Résumé</div>
+            <div class="sub" id="r_summary">—</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <form id="autoDevisForm">
+          <div class="field">
+            <label for="lead_name">Nom / Prénom</label>
+            <input id="lead_name" name="nom" type="text" required>
+          </div>
+          <div class="field">
+            <label for="lead_company">Entreprise</label>
+            <input id="lead_company" name="entreprise" type="text" required>
+          </div>
+          <div class="field">
+            <label for="lead_email">Email</label>
+            <input id="lead_email" name="email" type="email" required>
+          </div>
+          <div class="field">
+            <label for="lead_phone">Téléphone (optionnel)</label>
+            <input id="lead_phone" name="telephone" type="tel">
+          </div>
+<div class="field file-upload-wrap">
+  <label for="devis_piece_jointe">Pièce jointe (optionnel)</label>
+
+  <div class="file-dropzone" id="devisFileDropzone" tabindex="0" role="button" aria-label="Ajouter une pièce jointe">
+    <strong>Glissez-déposez un fichier ici</strong>
+    <div>ou cliquez pour sélectionner un fichier</div>
+    <small>Formats autorisés : Excel, CSV, PDF, Word, PNG, JPG · 5 Mo max</small>
+  </div>
+
+  <input
+    class="file-hidden-input"
+    type="file"
+    id="devis_piece_jointe"
+    name="piece_jointe"
+    accept=".xlsx,.xls,.csv,.pdf,.doc,.docx,.png,.jpg,.jpeg"
+  />
+
+  <div id="devisFileMeta" class="file-meta">Aucun fichier sélectionné</div>
+
+  <p class="small muted" style="margin:6px 0 0;">
+    Vous pouvez joindre un fichier Excel, un export, un PDF ou une capture pour illustrer votre demande.
+  </p>
+</div>
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <p class="small muted" style="margin:0.4rem 0 0.9rem;">
+            En envoyant ce message, vous acceptez que vos données soient utilisées par ProcessXcel afin de répondre à votre demande.
+            Elles ne seront jamais transférées à des tiers.
+          </p>
+
+          <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary">Envoyer l’estimation</button>
+            <button type="button" id="btn_reset" class="btn btn-outline">Réinitialiser</button>
+          </div>
+
+          <p id="autoDevisStatus" class="small muted" style="margin:0.55rem 0 0;"></p>
+        </form>
+
+        </div>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- AUTO-AUDIT PROCESSXCEL -->
+  <!-- ============================= -->
+  <section id="auto-audit">
+    <h1>Auto-audit – maturité &amp; risques de votre fichier</h1>
+    <p class="section-intro">
+      Même logique que notre grille d’audit : <strong>uniquement des critères observables</strong>. Répondez en 2 minutes.
+      Le score vous donne une idée du niveau de risque et de l’effort de fiabilisation.
+    </p>
+
+    <div class="audit-grid">
+      <!-- Colonne gauche -->
+      <div class="card">
+        <h2>1) Grille d’audit (objective)</h2>
+        <p class="muted" style="margin:0 0 0.6rem;">
+          Pour chaque axe, choisissez <strong>le niveau qui correspond le mieux</strong> à votre situation (0 à 5).
+        </p>
+
+        <div class="audit-axis" data-axis="struct">
+          <h3>Organisation du fichier</h3>
+          <p class="muted small" style="margin:0.1rem 0 0.6rem;">Comment vos informations sont rangées (et si on comprend vite où saisir / où lire les résultats).</p>
+          <div class="audit-opts">
+            <label class="audit-opt"><input type="radio" name="a_struct" value="0">
+              <span><strong>0</strong> Plusieurs fichiers pour le même sujet + versions qui se contredisent (on ne sait jamais lequel est le bon).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_struct" value="1">
+              <span><strong>1</strong> Beaucoup d’onglets sans logique claire + mêmes infos recopiées à plusieurs endroits.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_struct" value="2">
+              <span><strong>2</strong> Saisie et calculs mélangés : on peut écraser une formule sans s’en rendre compte.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_struct" value="3">
+              <span><strong>3</strong> Les données sont regroupées, mais la présentation / les résultats sont dans la même zone (difficile à faire évoluer).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_struct" value="4">
+              <span><strong>4</strong> Organisation claire : une zone “données”, une zone “calculs”, une zone “résultats”.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_struct" value="5">
+              <span><strong>5</strong> Organisation professionnelle : une seule base propre, pas de doublons, traitement séparé et tableau de bord clair.</span></label>
+</div>
+        </div>
+
+        <div class="audit-axis" data-axis="auto">
+          <h3>Automatisation</h3>
+          <div class="audit-opts">
+            <label class="audit-opt"><input type="radio" name="a_auto" value="0">
+              <span><strong>0</strong> Totaux / synthèses calculés manuellement (ou ressaisie de résultats).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_auto" value="1">
+              <span><strong>1</strong> Formules simples uniquement (SOMME/MOYENNE), pas de recherche croisée.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_auto" value="2">
+              <span><strong>2</strong> XLOOKUP/RECHERCHEV présentes mais copiées “à la main” (pas de table), fragile.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_auto" value="3">
+              <span><strong>3</strong> Au moins 1 TCD / Pivot, ou automatisation partielle (SI, SOMME.SI.ENS…) structurée.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_auto" value="4">
+              <span><strong>4</strong> Tables structurées + formules dynamiques (XLOOKUP/INDEX) + TCD actualisable.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_auto" value="5">
+              <span><strong>5</strong> Processus automatisé : mise à jour en 1 clic, pas de ressaisie/coller spécial.</span></label>
+          </div>
+        </div>
+
+        <div class="audit-axis" data-axis="sec">
+          <h3>Sécurité &amp; contrôle</h3>
+          <div class="audit-opts">
+            <label class="audit-opt"><input type="radio" name="a_sec" value="0">
+              <span><strong>0</strong> Toutes les cellules modifiables, aucune validation de saisie.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_sec" value="1">
+              <span><strong>1</strong> Protection globale feuille (sans distinguer zones saisie / formules).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_sec" value="2">
+              <span><strong>2</strong> Validation partielle (&lt;50% des zones saisie) : quelques listes déroulantes.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_sec" value="3">
+              <span><strong>3</strong> Validation 100% zones saisie + contrôle visuel (mise en forme conditionnelle erreurs).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_sec" value="4">
+              <span><strong>4</strong> Formules verrouillées + protections par zone (saisie autorisée, calcul protégé).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_sec" value="5">
+              <span><strong>5</strong> Contrôles cohérence automatiques + messages d’erreur explicites + traçabilité.</span></label>
+          </div>
+        </div>
+
+        <div class="audit-axis" data-axis="rob">
+          <h3>Robustesse technique</h3>
+          <div class="audit-opts">
+            <label class="audit-opt"><input type="radio" name="a_rob" value="0">
+              <span><strong>0</strong> Erreurs visibles (#REF!, #N/A) ou formules cassées.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_rob" value="1">
+              <span><strong>1</strong> Liaisons externes instables (&gt;2 liens vers fichiers non garantis accessibles).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_rob" value="2">
+              <span><strong>2</strong> Formules imbriquées &gt;5 niveaux, difficilement maintenables.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_rob" value="3">
+              <span><strong>3</strong> Structure stable mais une modification simple casse au moins 1 formule.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_rob" value="4">
+              <span><strong>4</strong> Aucune erreur visible + formules structurées + (éventuellement) plages nommées.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_rob" value="5">
+              <span><strong>5</strong> Évolutivité testée : insertion/suppression lignes/colonnes sans casse, maintenable.</span></label>
+          </div>
+        </div>
+
+        <div class="audit-axis" data-axis="trans">
+          <h3>Transmission &amp; dépendance</h3>
+          <div class="audit-opts">
+            <label class="audit-opt"><input type="radio" name="a_trans" value="0">
+              <span><strong>0</strong> Une seule personne comprend, aucune documentation.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_trans" value="1">
+              <span><strong>1</strong> Explication uniquement orale, pas de repères (noms, commentaires, guide).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_trans" value="2">
+              <span><strong>2</strong> Quelques commentaires, mais logique non formalisée (on “devine”).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_trans" value="3">
+              <span><strong>3</strong> Guide utilisateur 1 page (ou onglet “Mode d’emploi”) présent.</span></label>
+            <label class="audit-opt"><input type="radio" name="a_trans" value="4">
+              <span><strong>4</strong> Documentation claire + logique des feuilles expliquée (base/calcul/restit).</span></label>
+            <label class="audit-opt"><input type="radio" name="a_trans" value="5">
+              <span><strong>5</strong> Un tiers peut utiliser sans aide en &lt;15 min (test réalisable).</span></label>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="tip" style="margin-top:0.2rem;">
+          <strong>Conseil :</strong> si vous hésitez entre 2 niveaux, prenez le plus faible : l’objectif est de rester conservateur.
+        </div>
+      </div>
+
+      <!-- Colonne droite -->
+      <div class="card">
+        <h2>2) Résultat (en direct)</h2>
+        <p class="muted" style="margin:0 0 0.6rem;">
+          Score calculé sur 25 (puis converti sur 100). <span class="pill">100% objectif</span>
+        </p>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="label">Score audit</div>
+            <div class="value" id="a_score25">—</div>
+            <div class="sub" id="a_score100">—</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Niveau de risque</div>
+            <div class="value"><span class="risk" id="a_risk">—</span></div>
+            <div class="sub" id="a_risk_note">—</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Lecture rapide</div>
+            <div class="sub" id="a_summary">Choisissez un niveau (0→5) pour chaque axe.</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Recommandation</div>
+            <div class="sub" id="a_reco">—</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        
+        <form id="autoAuditForm" style="margin-top:0.9rem;">
+          <div class="field">
+            <label for="audit_name">Nom / Prénom</label>
+            <input id="audit_name" name="nom" type="text" required>
+          </div>
+          <div class="field">
+            <label for="audit_company">Entreprise</label>
+            <input id="audit_company" name="entreprise" type="text" required>
+          </div>
+          <div class="field">
+            <label for="audit_email">Email</label>
+            <input id="audit_email" name="email" type="email" required>
+          </div>
+          <div class="field">
+            <label for="audit_phone">Téléphone (optionnel)</label>
+            <input id="audit_phone" name="telephone" type="tel">
+          </div>
+
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <p class="small muted" style="margin:0.4rem 0 0.9rem;">
+            En envoyant ce message, vous acceptez que vos données soient utilisées par ProcessXcel afin de répondre à votre demande.
+            Elles ne seront jamais transférées à des tiers.
+          </p>
+
+          <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <button type="submit" class="btn btn-primary">Envoyer l’auto-audit</button>
+            <button type="button" id="btn_audit_reset" class="btn btn-outline">Réinitialiser l’audit</button>
+          </div>
+
+          <p id="autoAuditStatus" class="small muted" style="margin:0.55rem 0 0;"></p>
+        </form>
+
+        <div class="tip" style="margin-top:1rem;">
+          <strong>Note :</strong> l’auto-audit sert à cadrer. Un diagnostic sur vos fichiers reste nécessaire pour confirmer
+          les causes racines et prioriser les actions.
+        </div>
+
+        <div class="tip">
+          <strong>Vous voulez un chiffrage précis ?</strong><br>
+          Envoyez votre estimation via le formulaire au-dessus, et précisez dans “Précisions” :
+          <em>“Audit : score XX/25”</em> + votre contexte.
+        </div>
+
+        </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div style="text-align:center;">
+    © 2026 – ProcessXcel – Formations Excel<br>
+    <div style="margin-top:8px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; font-size:0.85rem;">
+      <a href="index.html" style="color:#2e7d32; text-decoration:underline;">Accueil</a>
+      <a href="tarifs.html" style="color:#2e7d32; text-decoration:underline;">Tarifs</a>
+      <a href="informations-formation.html" style="color:#2e7d32; text-decoration:underline;">Informations formation</a>
+      <a href="modalites.html" style="color:#2e7d32; text-decoration:underline;">Modalités &amp; accessibilité</a>
+      <a href="cgv.html" style="color:#2e7d32; text-decoration:underline;">CGV</a>
+      <a href="mentions-legales.html" style="color:#2e7d32; text-decoration:underline;">Mentions légales</a>
+      <a href="politique-confidentialite.html" style="color:#2e7d32; text-decoration:underline;">Politique de confidentialité</a>
+      <a href="cgu.html" style="color:#2e7d32; text-decoration:underline;">Conditions d’utilisation</a>
+      <a href="cookies.html" style="color:#2e7d32; text-decoration:underline;">Politique cookies</a>
+    </div>
+    <div style="margin-top:10px; font-size:0.8rem; color:#555;">
+      Dernière mise à jour : <strong>20/02/2026</strong>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu mobile
+  const toggle = document.querySelector(".nav-toggle");
+  const links = document.querySelector(".nav-links");
+  if (toggle && links){
+    toggle.addEventListener("click", () => links.classList.toggle("nav-open"));
+    links.addEventListener("click", (e) => { if (e.target.tagName === "A") links.classList.remove("nav-open"); });
+  }
+</script>
+
+<script>
+(function(){
+  const nfEur = new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR', maximumFractionDigits:0 });
+
+  const el = (id) => document.getElementById(id);
+
+  const inputs = {
+    users: el('q_users'),
+    sheets: el('q_sheets'),
+    size: el('q_size'),
+    goal: el('q_goal'),
+    urgency: el('q_urgency'),
+    reduc: el('q_reduc'),
+    reducVal: el('q_reduc_val'),
+    notes: el('q_notes'),
+    f_formules: el('f_formules'),
+    f_tcd: el('f_tcd'),
+    f_vba: el('f_vba'),
+    f_pq: el('f_pq'),
+    f_multi: el('f_multi'),
+    f_secu: el('f_secu'),
+    reset: el('btn_reset'),
+    form: el('autoDevisForm'),
+    status: el('autoDevisStatus'),
+
+    fileInput: el('devis_piece_jointe'),
+    fileDropzone: el('devisFileDropzone'),
+    fileMeta: el('devisFileMeta')
+  };
+
+  const outs = {
+    level: el('r_level'),
+    score: el('r_score'),
+    budget: el('r_budget'),
+    delay: el('r_delay'),
+    summary: el('r_summary')
+  };
+
+  const maxFileSize = 5 * 1024 * 1024;
+
+  const setStatus = (msg) => {
+    if (inputs.status) inputs.status.textContent = msg;
+  };
+
+  const formatBytes = (bytes) => {
+    if (!bytes && bytes !== 0) return "";
+    if (bytes < 1024) return bytes + " octets";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " Ko";
+    return (bytes / 1024 / 1024).toFixed(2) + " Mo";
+  };
+
+  const setFileMeta = (msg, isError = false) => {
+    if (!inputs.fileMeta) return;
+    inputs.fileMeta.textContent = msg;
+    inputs.fileMeta.classList.toggle("error", !!isError);
+  };
+
+  const validateFile = (file) => {
+    if (!file) return true;
+
+    const allowed = [
+      ".xlsx", ".xls", ".csv", ".pdf", ".doc", ".docx", ".png", ".jpg", ".jpeg"
+    ];
+
+    const lower = (file.name || "").toLowerCase();
+    const okExt = allowed.some((ext) => lower.endsWith(ext));
+
+    if (!okExt) {
+      setFileMeta("Format non autorisé. Utilise Excel, CSV, PDF, Word, PNG ou JPG.", true);
+      if (inputs.fileInput) inputs.fileInput.value = "";
+      return false;
+    }
+
+    if (file.size > maxFileSize) {
+      setFileMeta("Fichier trop volumineux. Taille maximale : 5 Mo.", true);
+      if (inputs.fileInput) inputs.fileInput.value = "";
+      return false;
+    }
+
+    setFileMeta("Fichier sélectionné : " + file.name + " (" + formatBytes(file.size) + ")");
+    return true;
+  };
+
+  function compute(){
+    const u = parseInt(inputs.users.value, 10);
+    const s = parseInt(inputs.sheets.value, 10);
+    const z = parseInt(inputs.size.value, 10);
+    const g = parseInt(inputs.goal.value, 10);
+    const urg = parseInt(inputs.urgency.value, 10);
+    const r = parseInt(inputs.reduc.value, 10);
+    inputs.reducVal.textContent = r;
+
+    let score = u + s + z + g + urg;
+
+    if (inputs.f_formules.checked) score += 1;
+    if (inputs.f_tcd.checked) score += 1;
+    if (inputs.f_vba.checked) score += 3;
+    if (inputs.f_pq.checked) score += 2;
+    if (inputs.f_multi.checked) score += 2;
+    if (inputs.f_secu.checked) score += 1;
+
+    let level, bMin, bMax, delay;
+    if (score <= 8){
+      level = "Faible";
+      bMin = 800; bMax = 1600;
+      delay = "1–2 semaines";
+    } else if (score <= 12){
+      level = "Moyenne";
+      bMin = 1600; bMax = 3200;
+      delay = "2–4 semaines";
+    } else if (score <= 16){
+      level = "Élevée";
+      bMin = 3200; bMax = 5200;
+      delay = "3–6 semaines";
+    } else {
+      level = "Très élevée";
+      bMin = 5200; bMax = 9500;
+      delay = "5–10 semaines";
+    }
+
+    const features = [
+      inputs.f_formules.checked ? "formules avancées" : null,
+      inputs.f_tcd.checked ? "TCD" : null,
+      inputs.f_vba.checked ? "VBA" : null,
+      inputs.f_pq.checked ? "Power Query" : null,
+      inputs.f_multi.checked ? "multi-fichiers" : null,
+      inputs.f_secu.checked ? "sécurisation" : null,
+    ].filter(Boolean);
+
+    const summary = `Utilisateurs: ${inputs.users.options[inputs.users.selectedIndex].text} • Feuilles: ${inputs.sheets.options[inputs.sheets.selectedIndex].text} • Taille: ${inputs.size.options[inputs.size.selectedIndex].text} • Objectif: ${inputs.goal.options[inputs.goal.selectedIndex].text} • Urgence: ${inputs.urgency.options[inputs.urgency.selectedIndex].text} • Gain visé: ${r}%` + (features.length ? ` • Présent: ${features.join(", ")}` : "");
+
+    outs.level.textContent = level;
+    outs.score.textContent = `Score : ${score}`;
+    outs.budget.textContent = `${nfEur.format(bMin)} – ${nfEur.format(bMax)}`;
+    outs.delay.textContent = delay;
+    outs.summary.textContent = summary;
+
+    window.__PX_AUTODEVIS__ = {
+      score, level, bMin, bMax, delay, summary,
+      notes: (inputs.notes.value || "").trim()
+    };
+  }
+
+  const bind = (node) => {
+    if (!node) return;
+    node.addEventListener('change', compute);
+    node.addEventListener('input', compute);
+  };
+
+  [
+    inputs.users, inputs.sheets, inputs.size, inputs.goal, inputs.urgency, inputs.reduc,
+    inputs.f_formules, inputs.f_tcd, inputs.f_vba, inputs.f_pq, inputs.f_multi, inputs.f_secu, inputs.notes
+  ].forEach(bind);
+
+  compute();
+
+  if (inputs.fileDropzone && inputs.fileInput) {
+    inputs.fileDropzone.addEventListener("click", () => {
+      inputs.fileInput.click();
+    });
+
+    inputs.fileDropzone.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        inputs.fileInput.click();
+      }
+    });
+
+    inputs.fileInput.addEventListener("change", () => {
+      const file = inputs.fileInput.files && inputs.fileInput.files[0];
+      if (!file) {
+        setFileMeta("Aucun fichier sélectionné");
+        return;
+      }
+      validateFile(file);
+    });
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      inputs.fileDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputs.fileDropzone.classList.add("is-dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach((eventName) => {
+      inputs.fileDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputs.fileDropzone.classList.remove("is-dragover");
+      });
+    });
+
+    inputs.fileDropzone.addEventListener("drop", (e) => {
+      const files = e.dataTransfer && e.dataTransfer.files;
+      if (!files || !files.length) return;
+
+      const file = files[0];
+      if (!validateFile(file)) return;
+
+      inputs.fileInput.files = files;
+    });
+  }
+
+  inputs.reset?.addEventListener("click", () => {
+    inputs.users.value = "1";
+    inputs.sheets.value = "1";
+    inputs.size.value = "1";
+    inputs.goal.value = "1";
+    inputs.urgency.value = "0";
+    inputs.reduc.value = "30";
+    inputs.f_formules.checked = false;
+    inputs.f_tcd.checked = false;
+    inputs.f_vba.checked = false;
+    inputs.f_pq.checked = false;
+    inputs.f_multi.checked = false;
+    inputs.f_secu.checked = false;
+    inputs.notes.value = "";
+
+    document.getElementById("lead_name").value = "";
+    document.getElementById("lead_company").value = "";
+    document.getElementById("lead_email").value = "";
+    document.getElementById("lead_phone").value = "";
+
+    if (inputs.fileInput) inputs.fileInput.value = "";
+    setFileMeta("Aucun fichier sélectionné");
+
+    setStatus("");
+    compute();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  inputs.form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setStatus("Envoi en cours…");
+
+    const fd = new FormData(inputs.form);
+
+    const nom = (fd.get("nom") || "").toString().trim();
+    const entreprise = (fd.get("entreprise") || "").toString().trim();
+    const email = (fd.get("email") || "").toString().trim();
+    const telephone = (fd.get("telephone") || "").toString().trim();
+    const website = (fd.get("website") || "").toString().trim();
+    const file = inputs.fileInput && inputs.fileInput.files ? inputs.fileInput.files[0] : null;
+
+    if (file && !validateFile(file)) {
+      setStatus("Merci de corriger la pièce jointe avant l’envoi.");
+      return;
+    }
+
+    const calc = window.__PX_AUTODEVIS__ || {};
+    const notes = (calc.notes || "").trim();
+
+    const payload = new FormData();
+    payload.append("name", nom);
+    payload.append("email", email);
+
+    const msg = [
+      "Type : Auto-devis (estimation budget & délai)",
+      entreprise ? `Entreprise : ${entreprise}` : null,
+      telephone ? `Téléphone : ${telephone}` : null,
+      "",
+      `Complexité : ${calc.level || "—"} (score ${calc.score ?? "—"})`,
+      `Budget estimatif : ${calc.bMin ? calc.bMin + " €" : "—"} – ${calc.bMax ? calc.bMax + " €" : "—"}`,
+      `Délai estimatif : ${calc.delay || "—"}`,
+      "",
+      "Résumé :",
+      calc.summary || "—",
+      notes ? `\nPrécisions :\n${notes}` : null,
+    ].filter(Boolean).join("\n");
+
+    payload.append("message", msg);
+    payload.append("website", website);
+
+    if (file) {
+      payload.append("piece_jointe", file);
+    }
+
+    try{
+      const res = await fetch("/api/contact", { method:"POST", body: payload });
+
+      let json = {};
+      try {
+        json = await res.json();
+      } catch (_) {}
+
+      if (res.ok){
+        setStatus("Estimation envoyée ✅");
+        window.location.href = "/merci.html";
+      } else {
+        setStatus(json.error || "Erreur d'envoi ❌ (réessayez dans quelques instants)");
+      }
+    } catch(err){
+      setStatus("Erreur réseau ❌ (vérifiez votre connexion)");
+    }
+  });
+
+})();
+</script>
+
+
+<script>
+(function(){
+  function q(sel){ return document.querySelector(sel); }
+  function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+  const out25 = q("#a_score25");
+  const out100 = q("#a_score100");
+  const outRisk = q("#a_risk");
+  const outRiskNote = q("#a_risk_note");
+  const outSummary = q("#a_summary");
+  const outReco = q("#a_reco");
+
+  if (!out25) return; // section not present
+
+  const axes = [
+    {name:"Structuration", key:"a_struct"},
+    {name:"Automatisation", key:"a_auto"},
+    {name:"Sécurité", key:"a_sec"},
+    {name:"Robustesse", key:"a_rob"},
+    {name:"Transmission", key:"a_trans"},
+  ];
+
+  function getVal(key){
+    const checked = q('input[name="'+key+'"]:checked');
+    return checked ? parseInt(checked.value, 10) : null;
+  }
+
+  function compute(){
+    const vals = axes.map(a => ({...a, v:getVal(a.key)}));
+    const answered = vals.filter(x => x.v !== null);
+    const score = answered.reduce((acc, x) => acc + x.v, 0);
+    const total = 25;
+
+    out25.textContent = answered.length ? (score + " / " + total) : "—";
+    const s100 = answered.length ? Math.round((score / total) * 100) : null;
+    out100.textContent = answered.length ? ("Conversion : " + s100 + " / 100") : "—";
+
+    // Risk reading (conservative)
+    // High score => lower risk. We translate as "maturité".
+    let risk = "—", note = "—", reco = "—";
+
+    if (!answered.length){
+      outRisk.textContent = "—";
+      outRiskNote.textContent = "—";
+      outReco.textContent = "—";
+      return;
+    }
+
+    // Simple buckets
+    if (s100 <= 25){
+      risk = "Critique";
+      note = "Fort risque d’erreur et forte dépendance : prioriser une refonte/fiabilisation.";
+      reco = "Cadrage + sécurisation immédiate. Refonte recommandée.";
+    } else if (s100 <= 45){
+      risk = "Élevé";
+      note = "Risque important : contrôles, structure et robustesse à stabiliser.";
+      reco = "Optimisation structurante (base/calcul/restitution) + contrôles.";
+    } else if (s100 <= 70){
+      risk = "Modéré";
+      note = "Base correcte mais améliorations nécessaires pour l’autonomie et la maintenabilité.";
+      reco = "Fiabilisation + standardisation + transmission.";
+    } else {
+      risk = "Faible";
+      note = "Fichier globalement maîtrisé. Quelques améliorations possibles (industrialisation).";
+      reco = "Améliorations ciblées + documentation + bonnes pratiques.";
+    }
+
+    outRisk.textContent = risk;
+    outRiskNote.textContent = note;
+
+    // Summary of weakest axes (answered)
+    const sorted = answered.slice().sort((a,b)=>a.v-b.v);
+    const weakest = sorted.slice(0,2).map(x => `${x.name} (${x.v}/5)`).join(" • ");
+    outSummary.textContent = `Points faibles prioritaires : ${weakest}`;
+    outReco.textContent = reco;
+  }
+
+  // Bind all radios in audit section
+  qa('#auto-audit input[type="radio"]').forEach(r => {
+    r.addEventListener("change", compute);
+  });
+
+  compute();
+})();
+</script>
+
+
+<script>
+(function(){
+  const statusEl = document.getElementById("autoAuditStatus");
+  const form = document.getElementById("autoAuditForm");
+  const btnReset = document.getElementById("btn_audit_reset");
+
+  function setStatus(msg){
+    if (statusEl) statusEl.textContent = msg;
+  }
+
+  function getCheckedVal(name){
+    const el = document.querySelector('input[name="'+name+'"]:checked');
+    return el ? parseInt(el.value, 10) : null;
+  }
+
+  function buildAuditPayload(){
+    const axes = [
+      {label:"Structuration", name:"a_struct"},
+      {label:"Automatisation", name:"a_auto"},
+      {label:"Sécurité", name:"a_sec"},
+      {label:"Robustesse", name:"a_rob"},
+      {label:"Transmission", name:"a_trans"},
+    ];
+
+    const vals = axes.map(a => ({...a, v:getCheckedVal(a.name)}));
+    const missing = vals.filter(x => x.v === null);
+    const score25 = vals.reduce((acc, x) => acc + (x.v ?? 0), 0);
+    const score100 = Math.round((score25 / 25) * 100);
+
+    // Risk buckets (same as display)
+    let risk = "—";
+    if (score100 <= 25) risk = "Critique";
+    else if (score100 <= 45) risk = "Élevé";
+    else if (score100 <= 70) risk = "Modéré";
+    else risk = "Faible";
+
+    return { axes: vals, missing: missing.map(x=>x.label), score25, score100, risk };
+  }
+
+  btnReset?.addEventListener("click", () => {
+    ["a_struct","a_auto","a_sec","a_rob","a_trans"].forEach(n => {
+      document.querySelectorAll('input[name="'+n+'"]').forEach(r => r.checked = false);
+    });
+    document.getElementById("audit_name").value = "";
+    document.getElementById("audit_company").value = "";
+    document.getElementById("audit_email").value = "";
+    document.getElementById("audit_phone").value = "";
+    setStatus("");
+    // refresh computed display if present
+    const evt = new Event("change");
+    document.querySelectorAll('#auto-audit input[type="radio"]').forEach(r => r.dispatchEvent(evt));
+    window.scrollTo({ top: document.getElementById("auto-audit").offsetTop - 80, behavior: "smooth" });
+  });
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setStatus("Envoi en cours…");
+
+    const fd = new FormData(form);
+    const nom = (fd.get("nom") || "").toString().trim();
+    const entreprise = (fd.get("entreprise") || "").toString().trim();
+    const email = (fd.get("email") || "").toString().trim();
+    const telephone = (fd.get("telephone") || "").toString().trim();
+    const website = (fd.get("website") || "").toString().trim(); // honeypot
+
+    const audit = buildAuditPayload();
+    if (audit.missing.length){
+      setStatus("Veuillez compléter l’audit : " + audit.missing.join(", ") + ".");
+      return;
+    }
+
+    // Message pour ProcessXcel (et potentielle copie côté back si vous le gérez)
+    const details = audit.axes.map(a => `${a.label}: ${a.v}/5`).join("\n");
+
+    const msg = [
+      "Type : Auto-audit (maturité & risques fichier Excel)",
+      entreprise ? `Entreprise : ${entreprise}` : null,
+      telephone ? `Téléphone : ${telephone}` : null,
+      "",
+      `Score : ${audit.score25}/25 (≈ ${audit.score100}/100)`,
+      `Niveau de risque : ${audit.risk}`,
+      "",
+      "Détail par axe :",
+      details,
+      "",
+      "Demande : Merci de me recontacter pour valider cet audit sur le fichier réel."
+    ].filter(Boolean).join("\n");
+
+    const payload = new FormData();
+    payload.append("name", nom);
+    payload.append("email", email);
+    payload.append("message", msg);
+    payload.append("website", website);
+    // Flag for backend (optionnel) : envoyer une copie au demandeur
+    payload.append("send_copy", "true");
+
+    try{
+      const res = await fetch("/api/contact", { method:"POST", body: payload });
+      if (res.ok){
+        setStatus("Auto-audit envoyé ✅");
+        window.location.href = "/merci.html";
+      } else {
+        setStatus("Erreur d'envoi ❌ (réessayez dans quelques instants)");
+      }
+    } catch(err){
+      setStatus("Erreur réseau ❌ (vérifiez votre connexion)");
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
