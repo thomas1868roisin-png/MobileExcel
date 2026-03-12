@@ -102,34 +102,203 @@ footer a:hover{opacity:0.85;}
   outline-offset:4px;
   border-radius:10px;
 }
+
+
+/* Header harmonisé comme index */
+.btn-autodevis {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn-autodevis:hover {
+  background: #d86f2a;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.08s ease,
+    background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+.btn-outline {
+  background: #fff;
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-dark);
+}
+.btn-outline:hover {
+  background: rgba(46, 125, 50, 0.06);
+}
+.btn-tarif {
+  background: #fff8f2;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  box-shadow: var(--shadow-soft);
+  padding-inline: 1rem;
+  font-size: 0.85rem;
+}
+.btn-tarif:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-formateurs {
+  background: #f0f0f0;
+  color: #444;
+  border: 1px solid #d5d5d5;
+  box-shadow: var(--shadow-soft);
+  padding-inline: 1rem;
+  font-size: 0.85rem;
+  border-radius: 999px;
+}
+.btn-formateurs:hover {
+  background: #dcdcdc;
+  color: #111;
+}
+.btn-pilote {
+  background: #eef8ff;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+  box-shadow: var(--shadow-soft);
+  padding-inline: 1rem;
+  font-size: 0.85rem;
+  border-radius: 999px;
+}
+.btn-pilote:hover {
+  background: #1565c0;
+  color: #fff;
+}
+.qualiopi-logo {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 100%;
+}
+.qualiopi-logo.header-logo {
+  height: 48px;
+}
+.nav-links .qualiopi-badge-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+}
+.nav-links .qualiopi-badge-link:hover {
+  background: transparent !important;
+}
+header .nav{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 12px;
+}
+header .nav-left{ grid-column: 1; grid-row: 1; }
+header .nav-cta{
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+}
+header .nav-links{
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.brand-link{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  text-decoration:none;
+  color:inherit;
+}
+.brand-link:hover .brand-text-main{
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.brand-link:focus-visible{
+  outline:3px solid rgba(46,125,50,0.35);
+  outline-offset:4px;
+  border-radius:10px;
+}
+@media (max-width: 900px){
+  header .nav{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  header .nav-cta{
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: flex-start;
+  }
+  header .nav-links{
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
 </style>
 </head><body>
 
 <header>
-  <div class="nav">
-    <div class="nav-left">
-      <a href="index.html" class="brand-link" aria-label="Aller à l'accueil ProcessXcel">
+    <div class="nav">
+      <!-- Logo + marque -->
+      <div class="nav-left">
         <img src="assets/img/Logo.png" alt="Logo ProcessXcel" class="logo-img" />
         <div class="brand-wrapper">
           <div class="brand-text-main">Process<span>Xcel</span></div>
-          <div class="brand-tagline">
-            Vos fichiers deviennent des outils. Vos équipes deviennent autonomes.
-          </div>
+          <div class="brand-tagline">Vos fichiers deviennent des outils. Vos équipes deviennent autonomes.</div>
         </div>
-      </a>
-    </div>
+      
+      <!-- CTA mis en avant (au-dessus de la navigation) -->
+      <div class="nav-cta">
+        <a href="auto-devis.html" class="btn btn-autodevis">Auto-devis</a>
+        <a href="index.html#contact" class="btn btn-primary">Contact</a>
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgkLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQ0NDw0NDisZFRkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAH8BLAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EADwQAAIBAgQEAwYEBQMFAAAAAAECAwQRAAUSITFBEyJRYXGBkQYUMqGxwdHwQlJy8SNSYoIVM1Nygv/EABkBAQADAQEAAAAAAAAAAAAAAAABAgMEBf/EACsRAQACAQMCBQQDAQAAAAAAAAABAgMRBBIhMUETIlFh8BMygZGxwdHh/9oADAMBAAIRAxEAPwD7cREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQB//2Q==" alt="Qualiopi processus certifié" class="qualiopi-logo header-logo" />
+      </div>
+</div>
 
-    <nav class="nav-links">
-      <a href="tarifs.html" class="btn btn-outline">Tarifs & packs</a>
-      <a href="sur-mesure.html" class="btn btn-outline">Optimisation & sur mesure</a>
-      <a href="informations-formation.html" class="btn btn-tarif is-active">Informations formation</a>
-      <a href="formateurs.html" class="btn btn-outline">Formateurs</a>
-      <a href="pilote.html" class="btn btn-outline">Pilote & témoignages</a>
-      <a href="modalites.html" class="btn btn-outline">Modalités & accessibilité</a>
-      <a href="index.html#contact" class="btn btn-primary">Contact</a>
-    </nav>
-  </div>
-</header>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span>
+      </button>
+
+      <nav class="nav-links">
+
+        <!-- Bouton Tarifs distinct, menant vers une page séparée -->
+        <a href="tarifs.html" class="btn btn-outline">Tarifs &amp; packs</a>
+        <a href="sur-mesure.html" class="btn btn-outline">Optimisation &amp; sur mesure</a>
+        <a href="informations-formation.html" class="btn btn-tarif is-active">Informations formation</a>
+        <a href="formateurs.html" class="btn btn-formateurs">Formateurs</a>
+        <a href="pilote.html" class="btn btn-pilote">Pilote &amp; témoignages</a>
+        <a href="modalites.html" class="btn btn-outline">Modalités &amp; accessibilité</a>
+</nav>
+    </div>
+  </header>
 
 <main>
 <h1>Informations <span>formation</span></h1>
